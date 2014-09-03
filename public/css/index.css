@@ -1,0 +1,259 @@
+html,
+body {
+  height: 100%;
+}
+body {
+  background-color: white;
+  color: #7e7f7f;
+  font-family: Open Sans, Century Gothic;
+}
+h1 {
+  font-size: 48px;
+  line-height: 72px;
+  font-weight: 300;
+}
+h2 {
+  font-size: 36px;
+  line-height: 60px;
+  font-weight: 300;
+}
+h3 {
+  font-size: 24px;
+  line-height: 36px;
+  font-weight: 400;
+}
+h4 {
+  font-size: 18px;
+  line-height: 30px;
+  font-weight: 400;
+}
+h5 {
+  font-size: 12px;
+  line-height: 20px;
+  font-weight: 400;
+}
+h6 {
+  font-size: 10px;
+}
+a:hover {
+  text-decoration: none;
+}
+ol.linenums > li {
+  list-style-type: decimal!important;
+  color: #7e7f7f;
+}
+body > header {
+  height: 40px;
+  border-bottom: solid 1px #d3d3d3;
+  padding: 7px 10px 7px 20px;
+}
+body > header > a {
+  background: url('https://dueprops.com/assets/yellow-star-9569c5d8db43adc3977b7f53ca09384f.png');
+  width: 100px;
+  height: 30px;
+  background-size: 100px;
+  display: block;
+  float: left;
+}
+body > header ul {
+  float: right;
+  list-style: none;
+}
+body > header li {
+  float: left;
+  margin: 4px 5px;
+  font-size: 11px;
+}
+body > header li a {
+  color: #000000;
+}
+body > header li a:hover {
+  color: #ce5424;
+}
+div.main-wrap {
+  margin-left: 140px;
+  margin-right: 220px;
+}
+main {
+  width: 900px;
+  margin: auto;
+}
+main a {
+  color: #ce5424;
+  text-decoration: none;
+}
+main a:hover {
+  color: #4d4e4e;
+}
+main header {
+  height: 35px;
+  margin: 0 auto 20px auto;
+  padding: 9px 10px;
+  font-size: 13px;
+  background: #ffffff;
+  text-transform: uppercase;
+  background: -moz-linear-gradient(left, #ffffff 0%, #dff2ef 50%, #ffffff 100%);
+  background: -webkit-gradient(left top, right top, color-stop(0%, #ffffff), color-stop(50%, #dff2ef), color-stop(100%, #ffffff));
+  background: -webkit-linear-gradient(left, #ffffff 0%, #dff2ef 50%, #ffffff 100%);
+  background: -o-linear-gradient(left, #ffffff 0%, #dff2ef 50%, #ffffff 100%);
+  background: -ms-linear-gradient(left, #ffffff 0%, #dff2ef 50%, #ffffff 100%);
+  background: linear-gradient(to right, #ffffff 0%, #dff2ef 50%, #ffffff 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ffffff', GradientType=1);
+}
+nav#sideNav,
+nav#sideChat {
+  display: block;
+  position: fixed;
+  height: auto;
+  top: 40px;
+  bottom: 0;
+  margin: 0;
+}
+nav#sideNav header,
+nav#sideChat header {
+  background: #151821;
+  height: 35px;
+  padding: 5px 8px;
+  margin: 0;
+  color: white;
+  font-size: 16px;
+  border-bottom: 1px solid #4d4e4e;
+}
+nav#sideNav figure,
+nav#sideChat figure {
+  text-align: center;
+}
+nav#sideNav figure img,
+nav#sideChat figure img {
+  border: solid 1px white;
+  background: white;
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
+  margin: 0 auto;
+}
+nav#sideNav figcaption,
+nav#sideChat figcaption {
+  padding: 4px 0px;
+  text-align: center;
+  font-size: 11px;
+}
+nav#sideNav section,
+nav#sideChat section {
+  padding: 9px 10px;
+  margin-top: 4px;
+}
+nav#sideNav {
+  font-size: 13px;
+  left: 0;
+  width: 140px;
+  background: #151821;
+}
+nav#sideNav a {
+  color: #dff2ef;
+}
+nav#sideNav a:hover {
+  color: #ce5424;
+}
+nav#sideNav header {
+  text-align: right;
+}
+nav#sideNav header img {
+  cursor: pointer;
+  -webkit-filter: brightness(2);
+}
+nav#sideNav header img:hover {
+  -webkit-filter: brightness(2.5);
+}
+nav#sideNav section {
+  color: #90d1cc;
+  text-transform: uppercase;
+}
+nav#sideNav ul {
+  padding: 3px 0;
+  margin: 0;
+}
+nav#sideNav li {
+  list-style: none;
+  border-bottom: solid 1px #4d4e4e;
+  color: white;
+  padding: 2px 1px 3px 1px;
+  text-transform: none;
+}
+nav#sideNav #bookmarks li {
+  font-size: 10px;
+  height: 19px;
+  width: 120px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 2px 1px 2px 1px;
+}
+nav#sideNav #bookmarks li a {
+  width: 120px;
+}
+nav#sideChat {
+  font-size: 13px;
+  color: #4d4e4e;
+  background: #f5f5f5;
+  bottom: 1;
+  right: 0;
+  width: 220px;
+}
+nav#sideChat .online {
+  border: solid 1px green;
+  padding: 1px;
+}
+nav#sideChat header img {
+  cursor: pointer;
+  -webkit-filter: brightness(1.5);
+}
+nav#sideChat header img:hover {
+  -webkit-filter: brightness(2.5);
+}
+nav#sideChat header span {
+  border-left: 1px solid #4d4e4e;
+  padding-left: 8px;
+  margin-left: 4px;
+  display: inline-block;
+}
+nav#sideChat header div {
+  position: absolute;
+  margin-top: -2;
+  margin-left: 12;
+  background: #ce5424;
+  color: white;
+  border-radius: 7;
+  width: 15;
+  height: 15;
+  text-align: center;
+  font-size: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 10;
+}
+nav#sideChat table {
+  padding: 0;
+  margin: 0;
+  font-size: 10px;
+  color: black;
+}
+nav#sideChat table tr td:first-child {
+  font-weight: bold;
+}
+nav#sideChat table td {
+  padding: 6px 2px 4px 7px;
+}
+nav#sideChat table time {
+  font-size: 8px;
+  float: right;
+  color: gray;
+  padding-top: 2px;
+}
+nav#sideChat input {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 40px;
+  padding: 5px;
+}
