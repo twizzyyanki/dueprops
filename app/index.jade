@@ -1,0 +1,27 @@
+doctype html
+html(lang="en" ng-app="DueProps")
+  head
+    title DueProps 2.0 | Keep Culture Healthy with Appreciation
+
+    link(rel="stylesheet" href="lib/angular-material/angular-material.css" type="text/css")
+    link(rel="stylesheet" href="lib/components-font-awesome/css/font-awesome.css" type="text/css")
+    link(rel="stylesheet" href="css/application.css" type="text/css")
+
+    // build:js1 /admin.js
+    script(type="text/javascript" src="lib/lodash/dist/lodash.js")
+    script(type="text/javascript" src="lib/moment/moment.js")
+    script(type="text/javascript" src="lib/jquery/dist/jquery.js")
+    script(type="text/javascript" src="lib/angular/angular.js")
+    script(type="text/javascript" src="lib/angular-animate/angular-animate.js")
+    script(type="text/javascript" src="lib/angular-material/angular-material.js")
+    script(type="text/javascript" src="lib/firebase/firebase.js")
+    script(type="text/javascript" src="lib/firebase-simple-login/firebase-simple-login.js")
+    script(type="text/javascript" src="lib/angularfire/dist/angularfire.js")
+    script(type="text/javascript" src="lib/angular-moment/angular-moment.js")
+    // endbuild
+
+    script(type="text/javascript" src="application.js")
+
+  body(dueprops layout="vertical" layout-fill)
+
+

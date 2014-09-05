@@ -1,8 +1,9 @@
+var consolidate = require('consolidate');
+
 global._ = require('lodash');
 global.t = require('moment');
 
 function run(appdir) {
-
 	var express = require('express');
 	var app = express();
 
@@ -15,12 +16,10 @@ function run(appdir) {
 
   // Where are templates located?
 	app.set('views', app.dir + '/app');
-
-	// Setup template helper functions and rendering systems (handlebars, jade, etc)
-	require('./templates').init(app);
+	app.engine('jade', consolidate.jade);
 
 	// Temporary Homepage
-	app.get('/', function(req,res) { res.status(200).render('index.hbs') });
+	app.get('/', function(req,res) { res.status(200).render('index.jade') });
 
 	// Standard error handling
 	app.use(function(err, req, res, next){

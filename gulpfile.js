@@ -8,11 +8,12 @@ var path = require('path'),
     uglify = require('gulp-uglify'),
     minifyHtml = require('gulp-minify-html'),
     minifyCss = require('gulp-minify-css'),
-    rev = require('gulp-rev');
+    rev = require('gulp-rev'),
+    jade = require('gulp-jade');
 
 var paths = {
   public: 'public/**',
-  templates: 'app/**/*.hbs',
+  jade: 'app/**/*.jade',
   styles: 'app/styles/*.+(less|css)'
 }
 
@@ -21,7 +22,7 @@ gulp.task('lint', function () {
 });
 
 gulp.task('nodemon', function () {
-  nodemon({ script: 'index.js', ext: 'html js', ignore: ['ignored.js'] })
+  nodemon({ script: 'index.js', ext: 'js' })
     .on('change', ['lint'])
     .on('restart', function () {
       console.log('>> node restart');
@@ -36,8 +37,15 @@ gulp.task('less', function () {
     .pipe(gulp.dest('./public/css'));
 });
 
+gulp.task('jade', function() {
+  gulp.src('./app/*.jade')
+    .pipe(jade())
+    .pipe(gulp.dest('./public/'))
+});
+
 gulp.task('watch', function() {
   livereload.listen({ port: 35729 });
+  gulp.watch(paths.jade, ['jade']);
   gulp.watch(paths.styles, ['less']);
   gulp.watch(paths.public).on('change',livereload.changed);
 });
