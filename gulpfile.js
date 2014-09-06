@@ -22,7 +22,7 @@ gulp.task('lint', function () {
 });
 
 gulp.task('nodemon', function () {
-  nodemon({ script: 'index.js', ext: 'js' })
+  nodemon({ script: 'index.js', ext: 'js', ignore: ['application.js'] })
     .on('change', ['lint'])
     .on('restart', function () {
       console.log('>> node restart');

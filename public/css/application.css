@@ -1,12 +1,106 @@
 /* Color constants */
 /* Other constants */
+.ng-cloak {
+  display: none;
+}
 a {
   color: #006ce9;
   text-decoration: none;
 }
+material-input-group label {
+  margin-top: 5px;
+}
+material-input-group label.invalid {
+  color: red !important;
+}
+material-input-group label.invalid::after {
+  content: ' (invalid)';
+}
+section {
+  background: #c4c5c8;
+  border-radius: 3px;
+  text-align: center;
+  margin: 1em;
+  position: relative !important;
+  padding-bottom: 10px;
+}
 footer {
+  background: #ccced1;
+  border-top: 1px solid #006ce9;
   color: #999694;
   font-size: 8pt;
   padding: 10px;
   text-align: center;
+}
+.prop {
+  justify-content: center;
+  text-align: left;
+}
+.prop .description {
+  font-size: 8pt;
+  padding: 10px;
+}
+.prop .icon {
+  height: auto;
+  margin-top: -20px;
+  margin-bottom: -30px;
+  width: 150px;
+}
+footer {
+  background: #ccced1;
+  border-top: 1px solid #006ce9;
+}
+#propdialog {
+  max-width: 80%;
+}
+#propdialog .dialog-content {
+  overflow: hidden;
+}
+#propdialog img.prop.habitat {
+  width: 100%;
+  height: auto;
+}
+#propdialog material-content.prop-details {
+  background: white;
+  margin-top: -450px;
+  margin-bottom: 400px;
+  opacity: 0.7;
+  padding: 20px;
+  width: 50%;
+}
+#propdialog material-content.prop-details form.prop-form {
+  margin-top: 15px;
+}
+#propdialog .dialog-actions {
+  min-height: 60px;
+  padding-right: 25px;
+}
+@media (min-width: 801px) {
+  header {
+    height: 35px;
+  }
+  a.logo {
+    padding: 10px;
+  }
+}
+/* iPhone 5  */
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (orientation: portrait) {
+  #propdialog {
+    max-width: 90%;
+  }
+  #propdialog material-content.prop-details {
+    margin-top: -85px;
+    padding: 10px;
+    width: 100%;
+  }
+}
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (orientation: landscape) {
+  #propdialog {
+    max-width: 90%;
+  }
+  #propdialog material-content.prop-details {
+    margin-top: -45px;
+    padding: 10px;
+    width: 100%;
+  }
 }

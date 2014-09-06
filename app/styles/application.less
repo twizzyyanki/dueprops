@@ -13,14 +13,120 @@
 @lightpadding: 10px;
 @smalltext-size: 8pt;
 
+.ng-cloak { display: none }
+
 a {
-	color: @altblue;
-	text-decoration: none;
+  color: @altblue;
+  text-decoration: none;
+}
+
+material-input-group {
+  label {
+    margin-top: 5px;
+  }
+  label.invalid {
+    color: red !important;
+    &::after {
+      content: ' (invalid)';
+    }
+  }
+}
+
+section {
+  background: @ghost;
+  border-radius: 3px;
+  text-align: center;
+  margin: 1em;
+  position: relative !important;
+  padding-bottom: 10px;
 }
 
 footer {
-	color: @delta;
-	font-size: @smalltext-size;
-	padding: @lightpadding;
-	text-align: center;
+  background: @geyser;
+  border-top: 1px solid @altblue;
+  color: @delta;
+  font-size: @smalltext-size;
+  padding: @lightpadding;
+  text-align: center;
+}
+
+.prop {
+  justify-content: center;
+  text-align: left;
+  .description {
+    font-size: @smalltext-size;
+    padding: 10px;
+  }
+  .icon {
+    height: auto;
+    margin-top: -20px;
+    margin-bottom: -30px;
+    width: 150px;
+  }
+}
+
+footer {
+  background: @geyser;
+  border-top: 1px solid @altblue;
+}
+
+#propdialog {
+  max-width: 80%;
+  .dialog-content {
+    overflow: hidden;
+  }
+  img.prop.habitat {
+    width: 100%;
+    height: auto;
+  }
+  material-content.prop-details {
+    background: white;
+    margin-top: -450px;
+    margin-bottom: 400px;
+    opacity: 0.7;
+    padding: 20px;
+    width: 50%;
+
+    form.prop-form {
+      margin-top: 15px;
+    }
+  }
+  .dialog-actions {
+    min-height: 60px;
+    padding-right: 25px;
+  }
+}
+
+@media (min-width:801px) {
+  header { height: 35px }
+  a.logo { padding: 10px }
+}
+
+/* iPhone 5  */
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 568px)
+and (orientation : portrait) {
+  #propdialog {
+    max-width: 90%;
+    material-content.prop-details {
+      margin-top: -85px;
+      padding: 10px;
+      width: 100%;
+    }
+  }
+}
+
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 568px)
+and (orientation : landscape) {
+  #propdialog {
+    max-width: 90%;
+    material-content.prop-details {
+      margin-top: -45px;
+      padding: 10px;
+      width: 100%;
+    }
+  }
 }

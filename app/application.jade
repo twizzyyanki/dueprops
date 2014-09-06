@@ -1,18 +1,29 @@
-material-toolbar.material-theme-light.material-medium-tall
+material-toolbar.material-theme-light
   .menu-icon(hide-md ng-click="openLeftMenu()")
      material-icon(icon="img/icons/ic_menu_24px.svg")
 
-  h1.material-toolbar-tools
-    a(href='#', ng-click='goHome()')
-      | DueProps
+  material-content(flex layout="horizontal")
+    h1.material-toolbar-tools
+      a(href='#', ng-click='goHome()')
+        | DueProps
+
+    a(ng-click="login('google')" ng-hide="user")
+      | login with google
+    a(ng-click="logout()" ng-show="user")
+      | logout
 
 material-content(flex layout="horizontal")
   material-sidenav.material-sidenav-left.material-whiteframe-z3(layout="vertical" flex-sm="33" flex-md="20" component-id="left")
     material-content(flex)
-      | this is content in the sidenav
-    button(ng-click="login()")
-      | login
-      material-ripple(initial-opacity='0.4' opacity-decay-velocity='1.75')
+      material-list
+        material-item.prop(ng-repeat="prop in props")
+          material-button(ng-click="openPropDialog(prop)")
+            .material-tile-content
+              img(ng-src="{{prop.icon}}" class="prop icon")
+              h3 {{ prop.name }}
+              .description
+                {{ prop.description }}
+
 
   material-content(flex layout='vertical' layout-fill)
     | This is where the feed goes
