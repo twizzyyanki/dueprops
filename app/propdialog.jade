@@ -18,4 +18,4 @@ material-dialog#propdialog
 
   .dialog-actions
     material-button(ng-click="close()" ng-hide="draft.valid()") Cancel
-    material-button.material-button-raised.material-theme-green(ng-click="save()" ng-show="draft.valid()") Save and Send
+    material-button.material-button-raised.material-theme-green(ng-click="save(draft)" ng-show="draft.valid()") Save and Send

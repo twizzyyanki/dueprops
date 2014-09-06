@@ -67,8 +67,14 @@ angular.module("DueProps", ['firebase','angularMoment','ngMaterial'])
     });
 
     $scope.login = function(provider) {
-      $scope.auth.$login(provider, { preferRedirect: true, rememberMe: true } ).then(function(user) {
+      options = {
+        preferRedirect: true,
+        rememberMe: true,
+        scope: 'https://www.googleapis.com/auth/contacts.readonly'
+      };
+      $scope.auth.$login(provider, options).then(function(user) {
         console.log('login successful');
+        importGoogleAddressBook();
       }, function(err) {
         console.log('error logging in', err);
       });
@@ -107,6 +113,10 @@ angular.module("DueProps", ['firebase','angularMoment','ngMaterial'])
               return !!this.to && !!this.reason && this.reason.length <= 140;
             }
           }
+
+          $scope.save = function(prop) {
+            return true;
+          }
         }]
       });
     }
@@ -129,3 +139,29 @@ angular.module("DueProps", ['firebase','angularMoment','ngMaterial'])
         '</material-input-group>'
     };
   });
+
+function importGoogleAddressBook() {
+  addressBook = {};
+  $.get("https://www.google.com/m8/feeds/contacts/default/full?alt=json&access_token=" + scope.user.accessToken + "&max-results=700&v=3.0",
+    function(response) {
+      console.log(response.feed.entry);
+      _.each(response.feed.entry, function(contact) {
+        name = contact.title.$t;
+        email = contact.gd$email[0].address;
+        if(name && email) {
+          addressBook[escapeEmailAddress(email)] = {name: name, email: email};
+        }
+      });
+      usersRef.child(scope.user.uid).child('addressbook').set(addressBook);
+    }
+  );
+}
+
+function escapeEmailAddress(email) {
+  if (!email) return false
+
+  // Replace '.' (not allowed in a Firebase key) with ',' (not allowed in an email address)
+  email = email.toLowerCase();
+  email = email.replace(/\./g, ',');
+  return email;
+}
