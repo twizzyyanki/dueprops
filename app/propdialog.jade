@@ -1,21 +1,13 @@
 material-dialog#propdialog
   .dialog-content
-    img(ng-src="{{prop.habitat}}" class="prop habitat" altSrc="{{prop.large}}" onerror="this.src = $(this).attr('altSrc')")
+    img(ng-src="{{draft.habitat}}" class="prop habitat" altSrc="{{draft.large}}" onerror="this.src = $(this).attr('altSrc')")
     material-content.prop-details
-      h1 {{prop.name}}
-      h4(ng-show="draft.gift") Send Props
-      h4(ng-show="draft.request") Request Props
-      .prop-actions(ng-hide="draft")
-        material-button.material-button-raised.material-theme-light-blue(ng-click="draftSend(prop)")
-          | Give To Someone
-        | &nbsp;
-        material-button.material-button-raised.material-theme-yellow(ng-click="draftRequest(prop)")
-          | Request
-
-      form.prop-form(ng-show="draft")
-        ig.material-input-group-theme-light-blue(ng-hide="draft.request" fid="to" label="to" draft="draft")
-        ig.material-input-group-theme-light-blue(fid="reason" label="reason" draft="draft" limit="140")
+      h1 {{draft.name}}
+      p {{draft.description}}
+      form.prop-form
+        draft-input.material-input-group-theme-light-blue(fid="to" label="to" draft="draft")
+        draft-input.material-input-group-theme-light-blue(fid="reason" label="why are they deserved?" draft="draft" limit="140")
 
   .dialog-actions
-    material-button(ng-click="close()" ng-hide="draft.valid()") Cancel
-    material-button.material-button-raised.material-theme-green(ng-click="save(draft)" ng-show="draft.valid()") Save and Send
+    material-button(ng-click="close()" ng-hide="validate(draft)") Cancel
+    material-button.material-button-raised.material-theme-green(ng-click="send(draft)" ng-show="validate(draft)") Save and Send

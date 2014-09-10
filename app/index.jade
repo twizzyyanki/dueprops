@@ -10,7 +10,7 @@ html(lang="en" ng-app="DueProps")
     link(rel="stylesheet" href="lib/components-font-awesome/css/font-awesome.css" type="text/css")
     link(rel="stylesheet" href="css/application.css" type="text/css")
 
-    // build:js1 /admin.js
+    // build:js1 /primary.js
     script(type="text/javascript" src="lib/lodash/dist/lodash.js")
     script(type="text/javascript" src="lib/moment/moment.js")
     script(type="text/javascript" src="lib/jquery/dist/jquery.js")
@@ -24,6 +24,8 @@ html(lang="en" ng-app="DueProps")
     // endbuild
 
     script(type="text/javascript" src="application.js")
+    script(type="text/javascript" src="shared/header-controller.js")
+    script(type="text/javascript" src="directives.js")
 
   body(dueprops layout="vertical" layout-fill)
 

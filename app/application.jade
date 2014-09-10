@@ -1,17 +1,4 @@
-material-toolbar.material-theme-light
-  .menu-icon(hide-md ng-click="openLeftMenu()")
-     material-icon(icon="img/icons/ic_menu_24px.svg")
-
-  material-content(flex layout="horizontal")
-    h1.material-toolbar-tools
-      a(href='#', ng-click='goHome()')
-        | DueProps
-
-    a(ng-click="login('google')" ng-hide="user")
-      | login with google
-    a(ng-click="logout()" ng-show="user")
-      | logout
-
+material-toolbar(site-header).material-theme-light
 material-content(flex layout="horizontal")
   material-sidenav.material-sidenav-left.material-whiteframe-z3(layout="vertical" flex-sm="33" flex-md="20" component-id="left")
     material-content(flex)
@@ -20,13 +7,28 @@ material-content(flex layout="horizontal")
           material-button(ng-click="openPropDialog(prop)")
             .material-tile-content
               img(ng-src="{{prop.icon}}" class="prop icon")
-              h3 {{ prop.name }}
-              .description
-                {{ prop.description }}
+              h2 {{ prop.name }}
+
 
 
   material-content(flex layout='vertical' layout-fill)
-    | This is where the feed goes
+    material-toolbar(class="material-theme-dark")
+      h1.material-toolbar-tools My Feed
+    material-list.feed
+      material-item(ng-repeat="prop in feed")
+        .material-tile-left
+          img(ng-src="{{prop.thumb}}")
+        .material-tile-content
+          h2 {{ prop.name }}
+          h3 {{ prop.reason }}
+          p
+            em
+            | Sent&nbsp;
+            timestamp(ng-if='prop.sent_at', am-time-ago='prop.sent_at')
+            | &nbsp;by&nbsp;
+            who {{ prop.sent_by.name }}
+
+
 
 footer
   | Copyright &copy; 2010-2014 DueProps.com

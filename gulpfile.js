@@ -38,7 +38,7 @@ gulp.task('less', function () {
 });
 
 gulp.task('jade', function() {
-  gulp.src('./app/*.jade')
+  gulp.src('./app/**/*.jade')
     .pipe(jade())
     .pipe(gulp.dest('./public/'))
 });
@@ -51,13 +51,13 @@ gulp.task('watch', function() {
 });
 
 gulp.task('usemin', function() {
-  gulp.src('app/**/*.hbs')
+  gulp.src('public/**/*.html')
     .pipe(usemin({
       css: [minifyCss(), 'concat'],
       html: [minifyHtml({empty: true})],
       js: [uglify(), rev()]
     }))
-    .pipe(gulp.dest('build/'));
+    .pipe(gulp.dest('dist/'));
 });
 
-gulp.task('default', ['nodemon','less','watch']);
+gulp.task('default', ['nodemon','jade','less','watch']);
