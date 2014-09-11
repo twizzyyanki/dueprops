@@ -8,4 +8,4 @@ material-card
       | Sent&nbsp;
       timestamp(ng-if='prop.sent_at', am-time-ago='prop.sent_at')
       | &nbsp;by&nbsp;
-      who {{ prop.sent_by.name }}
+      who {{ prop.sent_by.thirdPartyUserData.given_name }}

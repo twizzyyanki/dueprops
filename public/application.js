@@ -1,6 +1,8 @@
+// todo: move all the firebase stuff into a service
 var rootRef = new Firebase("https://scorching-torch-859.firebaseio.com/");
-var propsRef = rootRef.child('props');
+var feedRef = rootRef.child('feed');
 var notificationsRef = rootRef.child('notifications');
+var propsRef = rootRef.child('props');
 var usersRef = rootRef.child('users');
 
 window.DueProps = angular.module("DueProps", ['firebase','angularMoment','ngMaterial'])
@@ -30,7 +32,7 @@ DueProps.controller('Application', ['$rootScope','$scope', '$firebase', '$fireba
     $scope.props = $firebase(propsRef).$asArray();
 
     // load feed
-    $scope.feed = $firebase(usersRef.child(escapeEmailAddress(user.email)).child('received')).$asArray();
+    $scope.feed = $firebase(feedRef.child(escapeEmailAddress(user.email)).child('received')).$asArray();
   });
 
   $scope.openLeftMenu = function() {
@@ -48,9 +50,7 @@ DueProps.controller('Application', ['$rootScope','$scope', '$firebase', '$fireba
           thumb: prop.thumb,
           large: prop.large,
           habitat: prop.habitat,
-          sent_by: {
-            name: $rootScope.currentUser.displayName
-          },
+          sent_by: $rootScope.currentUser,
           sent_at: Firebase.ServerValue.TIMESTAMP,
         };
 
@@ -60,7 +60,8 @@ DueProps.controller('Application', ['$rootScope','$scope', '$firebase', '$fireba
 
         $scope.send = function(draftProps) {
           console.log('sending to', escapeEmailAddress(draftProps.to));
-          usersRef.child(escapeEmailAddress(draftProps.to)).child('received').push(draftProps);
+          feedRef.child(escapeEmailAddress(draftProps.to)).child('received').push(draftProps);
+          $hideDialog();
         };
 
         $scope.close = function() {

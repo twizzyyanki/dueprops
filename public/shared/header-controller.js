@@ -8,7 +8,7 @@ DueProps.controller('SiteHeaderController', ['$rootScope', '$scope', '$firebase'
   $scope.auth = $firebaseSimpleLogin(rootRef);
 
   // Start with no user logged in
-  $rootScope.user = null;
+  $rootScope.currentUser = null;
 
   // Upon successful login, set the user object
   // happens automatically when rememberMe is enabled

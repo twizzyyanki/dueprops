@@ -61,6 +61,7 @@ footer {
 .propgrid {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 .prop {
   align-self: auto;
@@ -90,6 +91,14 @@ material-content.feed {
 material-content.feed material-card {
   align-self: auto;
   flex: 1 1 300px;
+}
+material-content.feed material-card h2 {
+  margin-bottom: 0;
+}
+material-content.feed material-card h3 {
+  margin-top: 5px;
+  font-weight: normal;
+  min-height: 45px;
 }
 #propdialog {
   max-width: 80%;
