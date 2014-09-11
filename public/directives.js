@@ -1,6 +1,6 @@
 DueProps.directive('siteHeader', function() {
   return {
-    restrict: 'A',
+    restrict: 'E',
     controller: 'SiteHeaderController',
     templateUrl: '/shared/header.html'
   }
@@ -22,4 +22,12 @@ DueProps.directive('draftInput', function() {
         '<material-input id="{{fid}}" type="text" ng-model="draft[fid]">' +
       '</material-input-group>'
   };
+});
+
+DueProps.directive('propCard', function() {
+  return {
+    restrict: 'E',
+    replace: true,
+    templateUrl: '/shared/prop-card.html'
+  }
 });

@@ -1,12 +1,11 @@
-.menu-icon(hide-md ng-click="openLeftMenu()")
-   material-icon(icon="img/icons/ic_menu_24px.svg")
+h1
+  .menu-icon(hide-md ng-click="openLeftMenu()")
+     material-icon(icon="img/icons/ic_menu_24px.svg")
+  a(href='#', ng-click='goHome()')
+    | DueProps
 
-material-content(flex layout="horizontal")
-  h1.material-toolbar-tools
-    a(href='#', ng-click='goHome()')
-      | DueProps
-
+user-menu
   a(ng-click="login('google')" ng-hide="currentUser")
     | login with google
   a(ng-click="logout()" ng-show="currentUser")
-    img(ng-src="{{currentUser.thirdPartyUserData.picture}}")
+    img.avatar(ng-src="{{currentUser.thirdPartyUserData.picture}}")

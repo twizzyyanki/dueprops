@@ -1,14 +1,33 @@
 /* Color constants */
 /* Other constants */
-.ng-cloak {
-  display: none;
-}
 a {
   color: #006ce9;
   text-decoration: none;
 }
-material-button {
-  opacity: 1;
+site-header {
+  background: #006ce9;
+  display: flex;
+  flex: 0 0 55px;
+}
+site-header a {
+  color: #ffffff;
+}
+site-header h1 {
+  flex: 1 1 auto;
+  margin: 0;
+  padding: 8px 10px;
+}
+site-header .menu-icon {
+  display: inline-block;
+}
+site-header user-menu {
+  flex: 0 0 auto;
+  padding: 8px 10px;
+}
+site-header user-menu img.avatar {
+  border-radius: 50%;
+  width: 35px;
+  height: auto;
 }
 material-input-group label {
   margin-top: 5px;
@@ -39,9 +58,13 @@ footer {
   padding: 10px;
   text-align: center;
 }
+.propgrid {
+  display: flex;
+  flex-wrap: wrap;
+}
 .prop {
-  justify-content: center;
-  text-align: left;
+  align-self: auto;
+  flex: 1 1 92px;
 }
 .prop .description {
   font-size: 8pt;
@@ -50,15 +73,23 @@ footer {
 .prop .icon {
   height: auto;
   margin-top: -20px;
-  margin-bottom: -30px;
-  width: 150px;
-}
-material-list.feed material-item {
-  padding: 10px;
+  margin-bottom: -20px;
+  max-width: 92px;
 }
 footer {
   background: #ccced1;
   border-top: 1px solid #006ce9;
+}
+material-sidenav {
+  flex: 1 1 auto;
+  opacity: .9;
+}
+material-content.feed {
+  flex-wrap: wrap;
+}
+material-content.feed material-card {
+  align-self: auto;
+  flex: 1 1 300px;
 }
 #propdialog {
   max-width: 80%;
@@ -76,6 +107,7 @@ footer {
   opacity: 0.8;
   padding: 20px;
   position: absolute;
+  left: 10px;
   top: 50px;
   width: 70%;
 }
@@ -89,14 +121,6 @@ footer {
 #propdialog .dialog-actions {
   min-height: 60px;
   padding-right: 25px;
-}
-@media (min-width: 801px) {
-  header {
-    height: 35px;
-  }
-  a.logo {
-    padding: 10px;
-  }
 }
 /* iPhone 5  */
 @media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (orientation: portrait) {
@@ -118,4 +142,7 @@ footer {
     padding: 10px;
     width: 100%;
   }
+}
+.ng-cloak {
+  display: none;
 }

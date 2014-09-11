@@ -1,34 +1,14 @@
-material-toolbar(site-header).material-theme-light
-material-content(flex layout="horizontal")
-  material-sidenav.material-sidenav-left.material-whiteframe-z3(layout="vertical" flex-sm="33" flex-md="20" component-id="left")
-    material-content(flex)
-      material-list
-        material-item.prop(ng-repeat="prop in props")
-          material-button(ng-click="openPropDialog(prop)")
-            .material-tile-content
-              img(ng-src="{{prop.icon}}" class="prop icon")
-              h2 {{ prop.name }}
+site-header
+  //- header.jade
+main(layout="horizontal" layout-fill)
+  material-sidenav(flex layout="horizontal" style="padding-top: 10px" component-id="left")
+    material-content.propgrid
+      .prop(ng-repeat="prop in props")
+        img(ng-click="openPropDialog(prop)" ng-src="{{prop.icon}}" class="prop icon")
 
-
-
-  material-content(flex layout='vertical' layout-fill)
-    material-toolbar(class="material-theme-dark")
-      h1.material-toolbar-tools My Feed
-    material-list.feed
-      material-item(ng-repeat="prop in feed")
-        .material-tile-left
-          img(ng-src="{{prop.thumb}}")
-        .material-tile-content
-          h2 {{ prop.name }}
-          h3 {{ prop.reason }}
-          p
-            em
-            | Sent&nbsp;
-            timestamp(ng-if='prop.sent_at', am-time-ago='prop.sent_at')
-            | &nbsp;by&nbsp;
-            who {{ prop.sent_by.name }}
-
-
+  material-content.feed(layout="horizontal" style="align-items: flex-start; align-content: flex-start")
+    prop-card(ng-repeat="prop in feed")
+      //- prop-card.jade
 
 footer
   | Copyright &copy; 2010-2014 DueProps.com

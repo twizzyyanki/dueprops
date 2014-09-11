@@ -1,0 +1,11 @@
+material-card
+  img.material-card-image(ng-src="{{prop.habitat}}")
+  material-content
+    h2 {{ prop.name }}
+    h3 {{ prop.reason }}
+    p
+      em
+      | Sent&nbsp;
+      timestamp(ng-if='prop.sent_at', am-time-ago='prop.sent_at')
+      | &nbsp;by&nbsp;
+      who {{ prop.sent_by.name }}

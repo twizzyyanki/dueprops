@@ -13,15 +13,33 @@
 @lightpadding: 10px;
 @smalltext-size: 8pt;
 
-.ng-cloak { display: none }
-
 a {
   color: @altblue;
   text-decoration: none;
 }
 
-material-button {
-  opacity: 1;
+site-header {
+  background: @altblue;
+  display: flex;
+  flex: 0 0 55px;
+  a { color: white }
+  h1 {
+    flex: 1 1 auto;
+    margin: 0;
+    padding: 8px 10px;
+  }
+  .menu-icon {
+    display: inline-block;
+  }
+  user-menu {
+    flex: 0 0 auto;
+    padding: 8px 10px;
+    img.avatar {
+      border-radius: 50%;
+      width: 35px;
+      height: auto;
+    }
+  }
 }
 
 material-input-group {
@@ -61,9 +79,14 @@ footer {
   text-align: center;
 }
 
+.propgrid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .prop {
-  justify-content: center;
-  text-align: left;
+  align-self: auto;
+  flex: 1 1 92px;
   .description {
     font-size: @smalltext-size;
     padding: 10px;
@@ -71,14 +94,8 @@ footer {
   .icon {
     height: auto;
     margin-top: -20px;
-    margin-bottom: -30px;
-    width: 150px;
-  }
-}
-
-material-list.feed {
-  material-item {
-    padding: 10px;
+    margin-bottom: -20px;
+    max-width: 92px;
   }
 }
 
@@ -86,6 +103,20 @@ footer {
   background: @geyser;
   border-top: 1px solid @altblue;
 }
+
+material-sidenav {
+  flex: 1 1 auto;
+  opacity: .9;
+}
+
+material-content.feed {
+  flex-wrap: wrap;
+  material-card {
+    align-self: auto;
+    flex: 1 1 300px;
+  }
+}
+
 
 #propdialog {
   max-width: 80%;
@@ -102,6 +133,7 @@ footer {
     opacity: 0.8;
     padding: 20px;
     position: absolute;
+    left: 10px;
     top: 50px;
     width: 70%;
 
@@ -118,11 +150,6 @@ footer {
     min-height: 60px;
     padding-right: 25px;
   }
-}
-
-@media (min-width:801px) {
-  header { height: 35px }
-  a.logo { padding: 10px }
 }
 
 /* iPhone 5  */
@@ -153,3 +180,5 @@ and (orientation : landscape) {
     }
   }
 }
+
+.ng-cloak { display: none }
