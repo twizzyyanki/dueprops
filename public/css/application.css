@@ -86,6 +86,7 @@ material-sidenav {
   opacity: .9;
 }
 material-content.feed {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
   flex-wrap: wrap;
 }
 material-content.feed material-card {
