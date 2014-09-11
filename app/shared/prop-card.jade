@@ -1,9 +1,10 @@
 material-card
   img.material-card-image(ng-src="{{prop.habitat}}")
-  material-content
+  img.avatar(ng-src="{{prop.sent_by.thirdPartyUserData.picture}}")
+  material-content.prop-details
     h2 {{ prop.name }}
     h3 {{ prop.reason }}
-    p
+    p.info
       em
       | Sent&nbsp;
       timestamp(ng-if='prop.sent_at', am-time-ago='prop.sent_at')

@@ -5,7 +5,7 @@ var notificationsRef = rootRef.child('notifications');
 var propsRef = rootRef.child('props');
 var usersRef = rootRef.child('users');
 
-window.DueProps = angular.module("DueProps", ['firebase','angularMoment','ngMaterial'])
+window.DueProps = angular.module("DueProps", ['firebase','angularMoment','ngMaterial','ui.bootstrap'])
   .run(['$rootScope', function($rootScope) {
     // set globals we want available in ng expressions
     $rootScope._ = window._;

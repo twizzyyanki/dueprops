@@ -18,6 +18,12 @@ a {
   text-decoration: none;
 }
 
+img.avatar {
+  border-radius: 50%;
+  width: 35px;
+  height: auto;
+}
+
 site-header {
   background: @altblue;
   display: flex;
@@ -31,14 +37,9 @@ site-header {
   .menu-icon {
     display: inline-block;
   }
-  user-menu {
+  .dropdown {
     flex: 0 0 auto;
     padding: 8px 10px;
-    img.avatar {
-      border-radius: 50%;
-      width: 35px;
-      height: auto;
-    }
   }
 }
 
@@ -113,20 +114,62 @@ material-sidenav {
 material-content.feed {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
   flex-wrap: wrap;
+
+  & > material-toolbar {
+    flex: 1 1 300px%;
+  }
+
   material-card {
     align-self: auto;
     flex: 1 1 300px;
+    position: relative;
     h2 {
       margin-bottom: 0;
     }
     h3 {
       margin-top: 5px;
       font-weight: normal;
-      min-height: 45px;
+      min-height: 25px;
+    }
+    img.avatar {
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      width: 70px;
+    }
+    .prop-details {
+      top: auto;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 0 20px 10px 20px;
+      width: 100%;
+    }
+    .info {
+      color: #777;
     }
   }
 }
 
+material-content.prop-details {
+  background: white;
+  opacity: 0.8;
+  padding: 20px;
+  position: absolute;
+  left: 10px;
+  top: 50px;
+  width: 70%;
+
+  form.prop-form {
+    margin-top: 15px;
+
+    input {
+      border-color: black;
+      width: 100%;
+    }
+  }
+}
 
 #propdialog {
   max-width: 80%;
@@ -137,24 +180,6 @@ material-content.feed {
   img.prop.habitat {
     width: 100%;
     height: auto;
-  }
-  material-content.prop-details {
-    background: white;
-    opacity: 0.8;
-    padding: 20px;
-    position: absolute;
-    left: 10px;
-    top: 50px;
-    width: 70%;
-
-    form.prop-form {
-      margin-top: 15px;
-
-      input {
-        border-color: black;
-        width: 100%;
-      }
-    }
   }
   .dialog-actions {
     min-height: 60px;
