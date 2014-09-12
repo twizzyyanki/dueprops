@@ -20,11 +20,10 @@ DueProps.controller('SiteHeaderController', ['$rootScope', '$scope', '$firebase'
 
     // site presence
     user.active = true;
-    userId = escapeEmailAddress(user.email);
-    userRef = usersRef.child(userId);
+    user.id = escapeEmailAddress(user.email);
+    userRef = usersRef.child(user.id);
     userRef.on('value', function(snap){
       if(snap.val()) {
-        console.log('value snapshot', snap.val());
         userRef.child('active').set(true);
       }
       else {

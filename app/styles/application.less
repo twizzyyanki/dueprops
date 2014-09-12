@@ -15,6 +15,7 @@
 
 a {
   color: @altblue;
+  cursor: pointer;
   text-decoration: none;
 }
 
@@ -33,6 +34,10 @@ site-header {
     flex: 1 1 auto;
     margin: 0;
     padding: 8px 10px;
+  }
+  .sign-in {
+    margin: 10px 12px 20px 0;
+    material-button span { padding-right: 10px }
   }
   .menu-icon {
     display: inline-block;
@@ -123,6 +128,7 @@ material-content.feed {
     align-self: auto;
     flex: 1 1 300px;
     position: relative;
+
     h2 {
       margin-bottom: 0;
     }
@@ -138,13 +144,32 @@ material-content.feed {
       left: 20px;
       width: 70px;
     }
+    .love-action {
+      a {
+        color: silver;
+        outline: 0 !important;
+        transition: all ease-out 300ms;
+        &.active, &:hover { color: red }
+      }
+      position: absolute;
+      font-size: 26px;
+      right: 20px;
+      top: 8px;
+    }
     .prop-details {
       top: auto;
       left: 0;
       right: 0;
       bottom: 0;
+      min-height: 140px;
       padding: 0 20px 10px 20px;
       width: 100%;
+      h2, h3 {
+        padding-right: 40px;
+      }
+      h3 {
+        min-height: 40px;
+      }
     }
     .info {
       color: #777;
@@ -178,6 +203,7 @@ material-content.prop-details {
     position: relative;
   }
   img.prop.habitat {
+    min-width: 300px;
     width: 100%;
     height: auto;
   }
@@ -216,4 +242,6 @@ and (orientation : landscape) {
   }
 }
 
-.ng-cloak { display: none }
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}

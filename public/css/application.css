@@ -2,6 +2,7 @@
 /* Other constants */
 a {
   color: #006ce9;
+  cursor: pointer;
   text-decoration: none;
 }
 img.avatar {
@@ -21,6 +22,12 @@ site-header h1 {
   flex: 1 1 auto;
   margin: 0;
   padding: 8px 10px;
+}
+site-header .sign-in {
+  margin: 10px 12px 20px 0;
+}
+site-header .sign-in material-button span {
+  padding-right: 10px;
 }
 site-header .menu-icon {
   display: inline-block;
@@ -112,13 +119,36 @@ material-content.feed material-card img.avatar {
   left: 20px;
   width: 70px;
 }
+material-content.feed material-card .love-action {
+  position: absolute;
+  font-size: 26px;
+  right: 20px;
+  top: 8px;
+}
+material-content.feed material-card .love-action a {
+  color: silver;
+  outline: 0 !important;
+  transition: all ease-out 300ms;
+}
+material-content.feed material-card .love-action a.active,
+material-content.feed material-card .love-action a:hover {
+  color: #ff0000;
+}
 material-content.feed material-card .prop-details {
   top: auto;
   left: 0;
   right: 0;
   bottom: 0;
+  min-height: 140px;
   padding: 0 20px 10px 20px;
   width: 100%;
+}
+material-content.feed material-card .prop-details h2,
+material-content.feed material-card .prop-details h3 {
+  padding-right: 40px;
+}
+material-content.feed material-card .prop-details h3 {
+  min-height: 40px;
 }
 material-content.feed material-card .info {
   color: #777;
@@ -147,6 +177,7 @@ material-content.prop-details form.prop-form input {
   position: relative;
 }
 #propdialog img.prop.habitat {
+  min-width: 300px;
   width: 100%;
   height: auto;
 }
@@ -175,6 +206,11 @@ material-content.prop-details form.prop-form input {
     width: 100%;
   }
 }
-.ng-cloak {
-  display: none;
+[ng\:cloak],
+[ng-cloak],
+[data-ng-cloak],
+[x-ng-cloak],
+.ng-cloak,
+.x-ng-cloak {
+  display: none !important;
 }

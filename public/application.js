@@ -5,7 +5,7 @@ var notificationsRef = rootRef.child('notifications');
 var propsRef = rootRef.child('props');
 var usersRef = rootRef.child('users');
 
-window.DueProps = angular.module("DueProps", ['firebase','angularMoment','ngMaterial','ui.bootstrap'])
+window.DueProps = angular.module("DueProps", ['firebase','angularMoment','ngAnimate','ngMaterial','ui.bootstrap'])
   .run(['$rootScope', function($rootScope) {
     // set globals we want available in ng expressions
     $rootScope._ = window._;
@@ -19,25 +19,66 @@ window.DueProps = angular.module("DueProps", ['firebase','angularMoment','ngMate
     };
   });
 
-DueProps.controller('Application', ['$rootScope','$scope', '$firebase', '$firebaseSimpleLogin', '$materialSidenav', '$materialToast', '$materialDialog',
-               function($rootScope, $scope, $firebase, $firebaseSimpleLogin, $materialSidenav, $materialToast, $materialDialog) {
+DueProps.controller('Application', ['$rootScope','$scope', '$FirebaseArray', '$firebase', '$firebaseUtils', '$firebaseSimpleLogin', '$materialSidenav', '$materialToast', '$materialDialog',
+               function($rootScope, $scope, $FirebaseArray, $firebase, $firebaseUtils, $firebaseSimpleLogin, $materialSidenav, $materialToast, $materialDialog) {
 
   // for debugging
   window.scope = $scope;
+
+  PropCardFactory = $FirebaseArray.$extendFactory({
+    $$added: function(snap, prevChild) {
+      console.log(snap.val());
+      // check to make sure record does not exist
+      var i = this.$indexFor(snap.name());
+      if( i === -1 ) {
+        // parse data and create record
+        var rec = snap.val();
+        if( !angular.isObject(rec) ) {
+          rec = { $value: rec };
+        }
+        rec.$id = snap.name();
+        rec.$priority = snap.getPriority();
+        rec.$ref = snap.ref();
+
+        rec.love = function() {
+          // todo: figure out why we can't get this bound properly
+          this['lovers'] || (this.lovers = {}); // initialize if necessary
+          this.lovers[$rootScope.currentUser.id] = true; // local instance
+          this.$ref.child('lovers').child($rootScope.currentUser.id).set(true); // save remotely
+        }
+
+        rec.loved = function() {
+          return this['lovers'] && this.lovers[$rootScope.currentUser.id];
+        }
+
+        $firebaseUtils.applyDefaults(rec, this.$$defaults);
+
+        // add it to array and send notifications
+        this._process('child_added', rec, prevChild);
+      }
+    }
+  });
 
   // Upon successful login, set the user object
   // happens automatically when rememberMe is enabled
   $rootScope.$on("$firebaseSimpleLogin:login", function(event, user) {
     // load prop list
     $scope.props = $firebase(propsRef).$asArray();
-
     // load feed
-    $scope.feed = $firebase(feedRef.child(escapeEmailAddress(user.email)).child('received')).$asArray();
+    $scope.feed = $firebase(feedRef.child(escapeEmailAddress(user.email)).child('received'),{arrayFactory: PropCardFactory}).$asArray();
+  });
+
+  // Upon successful logout, reset the user object
+  $rootScope.$on("$firebaseSimpleLogin:logout", function(event) {
+    // load prop list
+    $scope.props = null;
+    // load feed
+    $scope.feed = null;
   });
 
   $scope.openLeftMenu = function() {
     $materialSidenav('left').toggle();
-  }
+  };
 
   $scope.openPropDialog = function(prop) {
     $materialDialog({
@@ -69,8 +110,18 @@ DueProps.controller('Application', ['$rootScope','$scope', '$firebase', '$fireba
         };
       }]
     });
-  }
+  };
+
 }]);
+
+function escapeEmailAddress(email) {
+  if (!email) return false
+
+  // Replace '.' (not allowed in a Firebase key) with ',' (not allowed in an email address)
+  email = email.toLowerCase();
+  email = email.replace(/\./g, ',');
+  return email;
+}
 
 function importGoogleAddressBook() {
   addressBook = {};
@@ -89,11 +140,3 @@ function importGoogleAddressBook() {
   );
 }
 
-function escapeEmailAddress(email) {
-  if (!email) return false
-
-  // Replace '.' (not allowed in a Firebase key) with ',' (not allowed in an email address)
-  email = email.toLowerCase();
-  email = email.replace(/\./g, ',');
-  return email;
-}

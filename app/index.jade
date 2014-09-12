@@ -10,6 +10,7 @@ html(lang="en" ng-app="DueProps")
     link(rel="stylesheet" href="lib/angular-material/angular-material.css" type="text/css")
     link(rel="stylesheet" href="lib/components-font-awesome/css/font-awesome.css" type="text/css")
     link(rel="stylesheet" href="css/application.css" type="text/css")
+    link(rel="stylesheet" href="css/animations.css" type="text/css")
 
     // build:js1 /primary.js
     script(type="text/javascript" src="lib/lodash/dist/lodash.js")
@@ -26,9 +27,10 @@ html(lang="en" ng-app="DueProps")
     // endbuild
 
     script(type="text/javascript" src="application.js")
-    script(type="text/javascript" src="shared/header-controller.js")
     script(type="text/javascript" src="directives.js")
+    script(type="text/javascript" src="shared/header-controller.js")
+    script(type="text/javascript" src="shared/prop-card.js")
 
-  body(dueprops layout="vertical" layout-fill)
+  body(dueprops layout="vertical" layout-fill ng-cloak)
 
 

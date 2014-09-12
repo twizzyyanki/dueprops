@@ -4,15 +4,20 @@ h1
   a(href='#', ng-click='goHome()')
     | DueProps
 
-sign-in(ng-hide="currentUser")
-  a(ng-click="login('google')")
-    | login with google
+.sign-in(ng-hide="currentUser")
+  material-button.material-button-raised.material-theme-green(ng-click="login('google')")
+    span login with
+    i.fa.fa-google
 
-.dropdown(ng-show="currentUser")
+.dropdown(ng-show="currentUser" ng-cloak)
   a(href="#").dropdown-toggle
     img.avatar(ng-src="{{currentUser.thirdPartyUserData.picture}}")
   ul.dropdown-menu.dropdown-menu-right(role="menu")
     li.dropdown-header(role="presentation")
-      {{ currentUser.email }}
+      | Signed in as {{ currentUser.email }}
+    li
+      a(ng-click="account()") Account Settings
+    li
+      a(ng-click="profile()") My Profile
     li
       a(ng-click="logout()") Sign out

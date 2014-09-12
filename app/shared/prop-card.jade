@@ -2,6 +2,10 @@ material-card
   img.material-card-image(ng-src="{{prop.habitat}}")
   img.avatar(ng-src="{{prop.sent_by.thirdPartyUserData.picture}}")
   material-content.prop-details
+    .love-action(title="Love these props")
+      a(ng-click="prop.love()" ng-class="{active: prop.loved()}")
+        i.fa.fa-heart
+
     h2 {{ prop.name }}
     h3 {{ prop.reason }}
     p.info
