@@ -8,6 +8,6 @@ material-dialog#propdialog
         draft-input.material-input-group-theme-light-blue(fid="to" label="to" draft="draft")
         draft-input.material-input-group-theme-light-blue(fid="reason" label="why are they deserved?" draft="draft" limit="140")
 
-  .dialog-actions
-    material-button(ng-click="close()" ng-hide="validate(draft)") Cancel
-    material-button.material-button-raised.material-theme-green(ng-click="send(draft)" ng-show="validate(draft)") Save and Send
+  .dialog-actions(ng-click="close()")
+    material-button(ng-hide="Props.validate(draft)") Cancel
+    material-button.material-button-raised.material-theme-green(ng-click="Props.send(draft)" ng-show="Props.validate(draft)") Save and Send

@@ -72,17 +72,21 @@ footer {
 }
 .prop {
   align-self: auto;
-  flex: 1 1 92px;
-}
-.prop .description {
-  font-size: 8pt;
-  padding: 10px;
+  flex: 2 1 92px;
 }
 .prop .icon {
+  cursor: pointer;
   height: auto;
-  margin-top: -20px;
-  margin-bottom: -20px;
+  margin-top: -10px;
+  margin-bottom: -10px;
   max-width: 92px;
+  transition: all ease-out 300ms;
+  opacity: 0.7;
+}
+.prop .icon:hover {
+  margin: -40px;
+  opacity: 1;
+  max-width: 200px;
 }
 footer {
   background: #ccced1;

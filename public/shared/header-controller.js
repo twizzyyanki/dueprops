@@ -58,3 +58,21 @@ DueProps.controller('SiteHeaderController', ['$rootScope', '$scope', '$firebase'
   };
 
 }]);
+
+// function importGoogleAddressBook() {
+//   addressBook = {};
+//   $.get("https://www.google.com/m8/feeds/contacts/default/full?alt=json&access_token=" + scope.user.accessToken + "&max-results=700&v=3.0",
+//     function(response) {
+//       console.log(response.feed.entry);
+//       _.each(response.feed.entry, function(contact) {
+//         name = contact.title.$t;
+//         email = contact.gd$email[0].address;
+//         if(name && email) {
+//           addressBook[escapeEmailAddress(email)] = {name: name, email: email};
+//         }
+//       });
+//       usersRef.child(scope.user.uid).child('addressbook').set(addressBook);
+//     }
+//   );
+// }
+

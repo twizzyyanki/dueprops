@@ -1,19 +1,19 @@
 site-header
   //- header.jade
 main(layout="horizontal" layout-fill)
-  material-sidenav(flex layout="horizontal" component-id="left" ng-show="props")
+  material-sidenav(flex layout="horizontal" component-id="left" ng-show="Props.props")
     material-content.propgrid
       material-toolbar.material-theme-light(style="margin-bottom: 10px")
         .material-toolbar-tools
           | Prop Collection
-      .prop(ng-repeat="prop in props")
-        img(ng-click="openPropDialog(prop)" ng-src="{{prop.icon}}" class="prop icon")
+      .prop(ng-repeat="prop in Props.props")
+        img(ng-click="openPropDialog(prop)" ng-src="{{prop.icon}}" class="icon")
 
-  material-content.feed(layout="horizontal" style="align-items: flex-start; align-content: flex-start" ng-show="feed")
+  material-content.feed(layout="horizontal" style="align-items: flex-start; align-content: flex-start" ng-show="Props.feed")
     material-toolbar.material-theme-light
       .material-toolbar-tools
         | My Feed
-    prop-card(ng-repeat="prop in feed" ng-animate="'animate'")
+    prop-card(ng-repeat="card in Props.feed" ng-animate="'animate'")
       //- prop-card.jade
 
 footer
