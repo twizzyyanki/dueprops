@@ -1,22 +1,28 @@
 site-header
   //- header.jade
 main(layout="horizontal" layout-fill)
-  material-sidenav(flex layout="horizontal" component-id="left" ng-show="Props.props")
+  public-content(ng-if="!currentUser")
+    include homepage
+  material-sidenav(flex layout="horizontal" component-id="left" ng-show="_.any(Props.props)")
     material-content.propgrid
-      material-toolbar.material-theme-light(style="margin-bottom: 10px")
-        .material-toolbar-tools
-          | Prop Collection
       .prop(ng-repeat="prop in Props.props")
         img(ng-click="openPropDialog(prop)" ng-src="{{prop.icon}}" class="icon")
 
-  material-content.feed(layout="horizontal" style="align-items: flex-start; align-content: flex-start" ng-show="Props.feed")
-    material-toolbar.material-theme-light
+  material-content.feed(layout="horizontal" style="align-items: flex-start; align-content: flex-start; width: 100%")
+    intro(ng-hide="_.any(Props.feed)")
+      .container
+        .jumbotron.col-md-10
+          img.img-responsive(src="/img/content-props/welcome.jpg")
+          p My name is Obie Fernandez and I'm the CEO and Founder of DueProps.com.
+          p I had the idea for DueProps while I was running my own web design and development agency. It turned out that even when you have a great company culture, it's hard to keep employees happy and motivated unless you make them feel appreciated every day.
+          p But how do you get yourself and your people to remember to give thanks to each other every day? Turns out the secret is not that complicated. You just need a <em>system</em>. But not any old system will do. It needs to be fun, and the tokens of appreciation have to be memorable, so that it doesn't take a lot of time to figure out what you want to say. In fact, with most props, just a word or two of description will suffice.x
+    material-toolbar.material-theme-light(ng-show="_.any(Props.feed)")
       .material-toolbar-tools
         | My Feed
     prop-card(ng-repeat="card in Props.feed" ng-animate="'animate'")
       //- prop-card.jade
 
-footer
+footer(ng-if="currentUser")
   | Copyright &copy; 2010-2014 DueProps.com
   | &nbsp;∙&nbsp;
   a(href="mailto:support@dueprops.com") Support

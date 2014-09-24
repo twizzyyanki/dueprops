@@ -1,8 +1,8 @@
 /* Color constants */
 @lighttext: #bbb;
-@defaultblue: #0080ec;
+@defaultblue: #006ee9;
 @darkreddish: #871a00;
-@altblue: #006ce9;
+@altblue: #0073e6;
 @ghost: #c4c5c8;
 @geyser: #ccced1;
 @onahau: #c3e0f8;
@@ -12,6 +12,10 @@
 /* Other constants */
 @lightpadding: 10px;
 @smalltext-size: 8pt;
+
+body {
+  font-family: "Proxima Nova","Helvetica Neue",Helvetica,Arial,Sans-Serif;
+}
 
 a {
   color: @altblue;
@@ -25,15 +29,48 @@ img.avatar {
   height: auto;
 }
 
+public-content {
+  min-height: 800px;
+  width: 100%;
+}
+
+cropper {
+  max-height: 500px;
+  overflow: hidden;
+  display: block;
+}
+
+poster {
+  display: block;
+}
+
+intro {
+  .jumbotron {
+    background: transparent;
+  }
+}
+
 site-header {
   background: @altblue;
+  background-image: linear-gradient(bottom, #006ee9 2%,#47d5f8 100%);
+  background-image: -o-linear-gradient(bottom, #006ee9 2%, #47d5f8 100%);
+  background-image: -moz-linear-gradient(bottom, #006ee9 2%, #47d5f8 100%);
+  background-image: -webkit-linear-gradient(bottom, #006ee9 2%, #47d5f8 100%);
+  background-image: -ms-linear-gradient(bottom, #006ee9 2%, #47d5f8 100%);
+  background-image: -webkit-gradient(linear, left bottom, left top, color-stop(-2.1, #006ee9), color-stop(1, #47d5f8));
   display: flex;
   flex: 0 0 55px;
   a { color: white }
   h1 {
-    flex: 1 1 auto;
+    background: transparent url('/img/css/header/yellow-star.png') no-repeat -12px -13px;
+    flex: 2 1 auto;
+    font-size: 28pt;
     margin: 0;
-    padding: 8px 10px;
+    padding-top: 10px;
+    padding-left: 60px;
+    text-indent: -999px;
+    text-shadow: 1px 1px 1px #222222;
+
   }
   .sign-in {
     margin: 10px 12px 20px 0;
@@ -103,9 +140,7 @@ footer {
     transition: all ease-out 300ms;
     opacity: 0.7;
     &:hover {
-      margin: -40px;
       opacity: 1;
-      max-width: 200px;
     }
   }
 }

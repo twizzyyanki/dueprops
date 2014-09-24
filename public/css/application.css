@@ -1,7 +1,10 @@
 /* Color constants */
 /* Other constants */
+body {
+  font-family: "Proxima Nova", "Helvetica Neue", Helvetica, Arial, Sans-Serif;
+}
 a {
-  color: #006ce9;
+  color: #0073e6;
   cursor: pointer;
   text-decoration: none;
 }
@@ -10,8 +13,29 @@ img.avatar {
   width: 35px;
   height: auto;
 }
+public-content {
+  min-height: 800px;
+  width: 100%;
+}
+cropper {
+  max-height: 500px;
+  overflow: hidden;
+  display: block;
+}
+poster {
+  display: block;
+}
+intro .jumbotron {
+  background: transparent;
+}
 site-header {
-  background: #006ce9;
+  background: #0073e6;
+  background-image: linear-gradient(bottom, #006ee9 2%, #47d5f8 100%);
+  background-image: -o-linear-gradient(bottom, #006ee9 2%, #47d5f8 100%);
+  background-image: -moz-linear-gradient(bottom, #006ee9 2%, #47d5f8 100%);
+  background-image: -webkit-linear-gradient(bottom, #006ee9 2%, #47d5f8 100%);
+  background-image: -ms-linear-gradient(bottom, #006ee9 2%, #47d5f8 100%);
+  background-image: -webkit-gradient(linear, left bottom, left top, color-stop(-2.1, #006ee9), color-stop(1, #47d5f8));
   display: flex;
   flex: 0 0 55px;
 }
@@ -19,9 +43,14 @@ site-header a {
   color: #ffffff;
 }
 site-header h1 {
-  flex: 1 1 auto;
+  background: transparent url('/img/css/header/yellow-star.png') no-repeat -12px -13px;
+  flex: 2 1 auto;
+  font-size: 28pt;
   margin: 0;
-  padding: 8px 10px;
+  padding-top: 10px;
+  padding-left: 60px;
+  text-indent: -999px;
+  text-shadow: 1px 1px 1px #222222;
 }
 site-header .sign-in {
   margin: 10px 12px 20px 0;
@@ -59,7 +88,7 @@ section {
 }
 footer {
   background: #ccced1;
-  border-top: 1px solid #006ce9;
+  border-top: 1px solid #0073e6;
   color: #999694;
   font-size: 8pt;
   padding: 10px;
@@ -84,13 +113,11 @@ footer {
   opacity: 0.7;
 }
 .prop .icon:hover {
-  margin: -40px;
   opacity: 1;
-  max-width: 200px;
 }
 footer {
   background: #ccced1;
-  border-top: 1px solid #006ce9;
+  border-top: 1px solid #0073e6;
 }
 material-sidenav {
   flex: 1 1 auto;
