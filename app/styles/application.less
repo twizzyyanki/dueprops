@@ -68,7 +68,7 @@ site-header {
   }
   .sign-in {
     margin: 10px 12px 20px 0;
-    material-button span { padding-right: 10px }
+    md-button span { padding-right: 10px }
   }
   .menu-icon {
     display: inline-block;
@@ -79,7 +79,7 @@ site-header {
   }
 }
 
-material-input-group {
+md-input-group {
   label {
     margin-top: 5px;
   }
@@ -144,20 +144,11 @@ footer {
   border-top: 1px solid @altblue;
 }
 
-material-sidenav {
-  flex: 1 1 auto;
-  opacity: .9;
-}
-
-material-content.feed {
+md-content.feed {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
   flex-wrap: wrap;
 
-  & > material-toolbar {
-    flex: 1 1 300px%;
-  }
-
-  material-card {
+  md-card {
     align-self: auto;
     flex: 1 1 300px;
     position: relative;
@@ -210,7 +201,7 @@ material-content.feed {
   }
 }
 
-material-content.prop-details {
+md-content.prop-details {
   background: white;
   opacity: 0.8;
   padding: 20px;
@@ -231,10 +222,6 @@ material-content.prop-details {
 
 #propdialog {
   max-width: 80%;
-  .dialog-content {
-    overflow: hidden;
-    position: relative;
-  }
   img.prop.habitat {
     min-width: 300px;
     width: 100%;
@@ -253,7 +240,7 @@ and (max-device-width : 568px)
 and (orientation : portrait) {
   #propdialog {
     max-width: 90%;
-    material-content.prop-details {
+    md-content.prop-details {
       margin-top: -85px;
       padding: 10px;
       width: 100%;
@@ -267,7 +254,7 @@ and (max-device-width : 568px)
 and (orientation : landscape) {
   #propdialog {
     max-width: 90%;
-    material-content.prop-details {
+    md-content.prop-details {
       margin-top: -45px;
       padding: 10px;
       width: 100%;

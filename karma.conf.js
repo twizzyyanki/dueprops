@@ -1,65 +1,53 @@
-// Karma configuration
-// Generated on Thu Aug 28 2014 18:28:04 GMT-0400 (EDT)
-
-module.exports = function(config) {
+module.exports = function(config){
   config.set({
+    basePath : '',
 
-    // base path that will be used to resolve all patterns (eg. files, exclude)
-    basePath: '',
-
-
-    // frameworks to use
-    // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['mocha'],
-
-
-    // list of files / patterns to load in the browser
-    files: [
-      'public/'
+    files : [
     ],
-
 
     // list of files to exclude
     exclude: [
     ],
 
-
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+      'public/js/index.js': 'coverage'
     },
-
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
-
+    reporters: ['progress','coverage'],
 
     // web server port
     port: 9876,
 
+    //60 seconds timeout to accommodate time for callbacks, for firebase
+    captureTimeout: 60000,
 
-    // enable / disable colors in the output (reporters and logs)
-    colors: true,
+    autoWatch : true,
 
+    singleRun : false,
 
-    // level of logging
-    // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
+    frameworks: ['jasmine'],
+
+    browsers : ['Chrome'],
+
     logLevel: config.LOG_INFO,
 
+    colors: true,
 
-    // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: true,
+    plugins : [
+      'karma-coverage',
+      'karma-chrome-launcher',
+      'karma-jasmine',
+    ],
 
+    coverageReporter : {
+      type : 'lcov',
+      dir : 'coverage/'
+    }
 
-    // start these browsers
-    // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
-
-
-    // Continuous Integration mode
-    // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false
   });
 };

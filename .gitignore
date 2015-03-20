@@ -4,6 +4,7 @@
 # Logs
 logs
 *.log
+.hubot_history
 
 # Runtime data
 pids
@@ -32,3 +33,8 @@ app/lib/**/*.min.css
 app/lib/**/*.map
 app/lib/**/*.md
 dist
+
+export_*
+
+tmp/
+public/

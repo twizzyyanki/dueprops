@@ -1,5 +1,33 @@
 # Changelog
 
+## 0.9.2 - 2015-03-17
+- Critical fix: npm install angular-moment fails ([#121](https://github.com/urish/angular-moment/issues/121))
+
+## 0.9.1 - 2015-03-17
+- Add support for locale strings customization ([#102](https://github.com/urish/angular-moment/pull/102), contributed by [vosi](https://github.com/vosi))
+- Add `amDifference` filter ([#120](https://github.com/urish/angular-moment/pull/120), contributed by [ajhodges](https://github.com/ajhodges))
+- Support for changing the timezone via `amMoment.changeTimezone()` ([#92](https://github.com/urish/angular-moment/issues/92))
+- Support for AngularJS 1.4.x
+- Remove explicit module name for RequireJS ([#112](https://github.com/urish/angular-moment/pull/112), contributed by [WilliamCarter](https://github.com/WilliamCarter))
+
+## 0.9.0 - 2015-01-11
+- Support moment.js v2.9.0. See [here](https://gist.github.com/ichernev/0c9a9b49951111a27ce7) for changelog.
+- Removed support for older moment.js versions. Only 2.8.0 and newer versions are now supported.
+- Removed deprecated method: `amMoment.changeLanguage()`. Use `amMoment.changeLocale()` instead.
+- Removed deprecated event: `amMoment:languageChange`. Listen for `amMoment:localeChange` instead.
+- Filters are now stateful by default (fixes [#97](https://github.com/urish/angular-moment/issues/97)).
+- The project is now available on [NuGet](https://www.nuget.org/packages/angular-moment/) ([#99](https://github.com/urish/angular-moment/pull/99), contributed by [markvp](https://github.com/markvp)).
+
+## 0.8.3 - 2014-12-08
+- `amTimeAgo` filter ([#96](https://github.com/urish/angular-moment/pull/96), contributed by [maxklenk](https://github.com/maxklenk))
+- Show formatted time as element title ([#78](https://github.com/urish/angular-moment/pull/78), contributed by [ctesene](https://github.com/ctesene))
+- Support commonjs and browserify ([#95](https://github.com/urish/angular-moment/pull/95), contributed by [Pencroff](https://github.com/Pencroff))
+- SystemJS Loader support ([#85](https://github.com/urish/angular-moment/pull/85), contributed by [capaj](https://github.com/capaj))
+
+## 0.8.2 - 2014-09-07
+- `amMoment.changeLanguage()` was deprecated in favor of `amMoment.changeLocale()` (following [a change](http://momentjs.com/docs/#/i18n/changing-locale/) introduced in moment v2.8.1)
+- Bugfix: changing the locale emitted a deprecation warning (see [#76](https://github.com/urish/angular-moment/issues/76) for details).
+
 ## 0.8.1 - 2014-09-01
 - Support moment.js v2.8.0. See [here](https://gist.github.com/ichernev/ac3899324a5fa6c8c9b4) for changelog.
 - Support moment-timezone v0.2.1. See [here](https://github.com/moment/moment-timezone/blob/develop/changelog.md#021-2014-08-02) for changelog.

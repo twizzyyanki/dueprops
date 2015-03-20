@@ -1,32 +1,62 @@
 var browserify = require('browserify'),
-    es6ify = require('es6ify'),
+    bower = require('gulp-bower'),
+    concat = require('gulp-concat'),
+    karma = require('gulp-karma'),
     gulp = require('gulp'),
     gutil = require('gulp-util'),
+    shell = require('gulp-shell'),
     jade = require('gulp-jade'),
     jshint = require('gulp-jshint'),
     less = require('gulp-less'),
-    livereload = require('gulp-livereload'),
-    minifyCss = require('gulp-minify-css'),
     minifyHtml = require('gulp-minify-html'),
     nodemon = require('gulp-nodemon'),
     path = require('path'),
-    rev = require('gulp-rev'),
+    protractor = require('gulp-protractor').protractor,
     source = require('vinyl-source-stream'),
     stringify = require('stringify'),
-    uglify = require('gulp-uglify'),
-    usemin = require('gulp-usemin'),
-    watchify = require('watchify');
+    watchify = require('watchify'),
+    mocha = require('gulp-mocha'),
+    exit = require('gulp-exit');
 
 var paths = {
   public: 'public/**',
   jade: 'app/**/*.jade',
-  styles: 'app/styles/*.+(less|css)'
-}
+  styles: 'app/styles/*.+(less|css)',
+  scripts: 'app/**/*.js',
+  staticFiles: [
+    '!app/**/*.+(less|css|js|jade)',
+     'app/**/*.*'
+  ],
+  clientTests: [
+      'public/lib/angular/angular.js',
+      'public/lib/angular-mocks/angular-mocks.js',
+      'public/lib/angular-route/angular-route.js',
+      'public/lib/angular-ui-router/release/angular-ui-router.js',
+      'public/lib/angular-cookies/angular-cookies.js',
+      'public/lib/angular-elastic/elastic.js',
+      'public/lib/angular-bootstrap/ui-bootstrap.js',
+      'public/lib/hammerjs/hammer.js',
+      'public/lib/jquery/dist/jquery.min.js',
+      'public/lib/angular-aria/angular-aria.js',
+      'public/lib/angular-material/angular-material.js',
+      'public/lib/angular-animate/angular-animate.js',
+      'public/lib/angular-sanitize/angular-sanitize.js',
+      'public/lib/angularfire/dist/angularfire.js',
+      'public/lib/moment/moment.js',
+      'public/lib/firebase/firebase.js',
+      'public/js/index.js',
+      'public/lib/lodash/lodash.min.js',
+      'public/lib/angular-sortable-view/src/angular-sortable-view.js',
+      'test/client/helpers/mocks.js',
+      'test/client/**/*.js'],
+  serverTests: [
+      'test/server/**/*.js']
+};
 
 gulp.task('jade', function() {
-  gulp.src('./app/**/*.jade')
+  gulp.src(paths.jade)
     .pipe(jade())
-    .pipe(gulp.dest('./public/'))
+    .pipe(gulp.dest('./public/'));
 });
 
 gulp.task('less', function () {
@@ -37,39 +67,33 @@ gulp.task('less', function () {
     .pipe(gulp.dest('./public/css'));
 });
 
+gulp.task('static-files',function(){
+  return gulp.src(paths.staticFiles)
+    .pipe(gulp.dest('public/'));
+});
+
 gulp.task('lint', function () {
-  gulp.src('./**/*.js').pipe(jshint())
+  gulp.src(['./app/**/*.js','./index.js','./lib/**/*.js','./workers/**/*.js','./config/**/*.js']).pipe(jshint())
+  .pipe(jshint.reporter('default'));
 });
 
 gulp.task('nodemon', function () {
-  nodemon({ script: 'index.js', ext: 'js', ignore: ['./app/**','./public/**'] })
-    .on('change', ['lint'])
-    .on('restart', function () {
+  nodemon({ script: 'index.js', ext: 'js', ignore: ['public/**','app/**','node_modules/**'] })
+    .on('restart',['jade','less'], function () {
       console.log('>> node restart');
-    })
+    });
 });
 
-gulp.task('watch', function() {
-  livereload.listen({ port: 35729 });
-  gulp.watch(paths.jade, ['jade']);
-  gulp.watch(paths.styles, ['less']);
-  gulp.watch(paths.public).on('change', livereload.changed);
-});
-
-gulp.task('usemin', function() {
-  gulp.src('public/**/*.html')
-    .pipe(usemin({
-      css: [minifyCss(), 'concat'],
-      html: [minifyHtml({empty: true})],
-      js: [uglify(), rev()]
-    }))
-    .pipe(gulp.dest('dist/'));
+gulp.task('scripts', function() {
+  gulp.src(paths.scripts)
+    .pipe(concat('index.js'))
+    .pipe(gulp.dest('./public/js'));
 });
 
 gulp.task('watchify', function() {
   var bundler = watchify(browserify('./app/application.js', watchify.args));
 
-  // bundler.transform(stringify(['.html']));
+  bundler.transform(stringify(['.html']));
   // bundler.transform(es6ify);
 
   bundler.on('update', rebundle);
@@ -77,24 +101,97 @@ gulp.task('watchify', function() {
   function rebundle() {
     return bundler.bundle()
       // log errors if they happen
+      .on('success', gutil.log.bind(gutil, 'Browserify Rebundled'))
       .on('error', gutil.log.bind(gutil, 'Browserify Error'))
       .pipe(source('index.js'))
       .pipe(gulp.dest('./public/js'));
   }
-
   return rebundle();
 });
 
-gulp.task('bundle', function() {
-  var bundler = browserify('./app/application.js');
+//runs locally only
+gulp.task('codeclimate', shell.task([
+  'CODECLIMATE_REPO_TOKEN=5bdb37d182c2eee89c140cf44f338a0a20f6bc0ebaa648d7cc660dece14af397 codeclimate < "'+process.env.PWD+'/coverage/Chrome 39.0.2171 (Mac OS X 10.9.5)/lcov.info"'
+]));
 
-  // bundler.transform(stringify(['.html']));
-  // bundler.transform(es6ify);
+//runs DB migrations
+gulp.task('db-migrate', shell.task([
+  'db-migrate up'
+]));
 
-  bundler.bundle()
-    .pipe(source('index.js'))
-    .pipe(gulp.dest('./public/js'));
+gulp.task('browserify', function() {
+  var b = browserify();
+  b.add('./app/application.js');
+  return b.bundle()
+  .on('success', gutil.log.bind(gutil, 'Browserify Rebundled'))
+  .on('error', gutil.log.bind(gutil, 'Browserify Error: in browserify gulp task'))
+  .pipe(source('index.js'))
+  .pipe(gulp.dest('./public/js'));
 });
 
-gulp.task('default', ['nodemon','jade','less','watch','watchify']);
-gulp.task('build', ['jade','less','bundle']);
+gulp.task('watch', function() {
+  gulp.watch(paths.jade, ['jade']);
+  gulp.watch(paths.styles, ['less']);
+  gulp.watch(paths.scripts, ['browserify']);
+});
+
+gulp.task('bower', function() {
+  return bower()
+    .pipe(gulp.dest('public/lib/'));
+});
+
+gulp.task('test:client', ['browserify'], function() {
+  return gulp.src(paths.clientTests)
+  .pipe(karma({
+    configFile: 'karma.conf.js',
+    action: 'run'
+  }));
+});
+
+gulp.task('test:server', ['test:client'], function() {
+  return gulp.src(paths.serverTests)
+  .pipe(mocha({
+    reporter: 'spec',
+    timeout: 50000
+  }))
+  .pipe(exit());
+});
+
+gulp.task('test:e2e',function(cb) {
+  gulp.src(['./test/e2e/**/*.js'])
+  .pipe(protractor({
+    configFile: 'protractor.conf.js',
+    args: ['--baseUrl', 'http://127.0.0.1:8000']
+  }))
+  .on('error', function(e) {
+      console.log(e);
+  })
+  .on('end', cb);
+});
+
+gulp.task('test:one', ['browserify'], function() {
+  var argv = process.argv.slice(3);
+
+  var testPaths = paths.clientTests;
+  testPaths = testPaths.splice(0, testPaths.length-1);
+
+  if(argv[0] === '--file' && argv[1] !== undefined) {
+    testPaths.push(argv[1].trim());
+  }
+
+  return gulp.src(testPaths)
+  .pipe(karma({
+    configFile: 'karma.conf.js',
+    action: 'run'
+  }))
+  .on('error', function(err) {
+    throw err;
+  });
+});
+
+gulp.task('build', ['bower', 'jade','less','browserify','static-files']);
+gulp.task('production', ['nodemon','build']);
+gulp.task('default', ['nodemon', 'build', 'watch']);
+gulp.task('heroku:production', ['db-migrate', 'build']);
+gulp.task('heroku:staging', ['build']);
+gulp.task('test', ['test:client','test:server']);

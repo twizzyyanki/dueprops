@@ -1,0 +1,14 @@
+.menu-icon(ng-click="openLeftMenu()" ng-show="_.any(currentUser.props)")
+   md-icon(hide-md hide-lg icon="img/icons/ic_menu_24px.svg")
+h1
+  a(href='#', ng-click='goHome()')
+    | DueProps
+
+.sign-in(ng-hide="currentUser")
+  md-button.md-button-raised.md-theme-green(ng-click="login('google')")
+    span login with
+    i.fa.fa-google
+
+span(ng-show="currentUser" ng-cloak)
+  img.avatar(ng-src="{{currentUser.picture}}")
+  span Signed in as {{ currentUser.email }}

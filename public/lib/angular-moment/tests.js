@@ -1,5 +1,5 @@
 /* License: MIT.
- * Copyright (C) 2013, 2014, Uri Shaked.
+ * Copyright (C) 2013, 2014, 2015, Uri Shaked.
  */
 
 /* global describe, inject, module, beforeEach, afterEach, it, expect, spyOn, jasmine */
@@ -24,9 +24,10 @@ describe('module angularMoment', function () {
 		originalTimeAgoConfig = angular.copy(amTimeAgoConfig);
 		originalAngularMomentConfig = angular.copy(angularMomentConfig);
 
-		// Ensure the language of moment.js is set to english by default
-		moment.lang('en');
-		// Add a sample timezone for tests
+		// Ensure the locale of moment.js is set to en by default
+		(moment.locale || moment.lang)('en');
+		// Add a sample timezones for tests
+		moment.tz.add('UTC|UTC|0|0|');
 		moment.tz.add('Pacific/Tahiti|LMT TAHT|9W.g a0|01|-2joe1.I');
 	}));
 
@@ -234,13 +235,13 @@ describe('module angularMoment', function () {
 			expect(element.text()).toBe('a few seconds');
 		});
 
-		it('should generate update the text following a language change via amMoment.changeLanguage() method', function () {
+		it('should generate update the text following a locale change via amMoment.changeLocale() method', function () {
 			$rootScope.testDate = new Date();
 			var element = angular.element('<span am-time-ago="testDate"></span>');
 			element = $compile(element)($rootScope);
 			$rootScope.$digest();
 			expect(element.text()).toBe('a few seconds ago');
-			amMoment.changeLanguage('fr');
+			amMoment.changeLocale('fr');
 			expect(element.text()).toBe('il y a quelques secondes');
 		});
 
@@ -250,6 +251,35 @@ describe('module angularMoment', function () {
 			element = $compile(element)($rootScope);
 			$rootScope.$digest();
 			expect(element.attr('datetime')).toBe('2012-09-20T15:20:12.000Z');
+		});
+
+		describe('setting the element title', function () {
+			it('should not set the title attribute of the element to the date by default', function () {
+				$rootScope.testDate = new Date().getTime() / 1000;
+				var element = angular.element('<span am-time-ago="testDate"></span>');
+				element = $compile(element)($rootScope);
+				$rootScope.$digest();
+				expect(element.attr('title')).toBeUndefined();
+			});
+
+			it('should not change the title attribute of the element if the element already has a title', function () {
+				amTimeAgoConfig.titleFormat = 'MMMM Do YYYY, h:mm:ss a';
+				$rootScope.testDate = new Date().getTime() / 1000;
+				var element = angular.element('<span am-time-ago="testDate" title="test"></span>');
+				element = $compile(element)($rootScope);
+				$rootScope.$digest();
+				expect(element.attr('title')).toBe('test');
+			});
+
+			it('should set the title attribute of the element to the formatted date as per the config', function () {
+				amTimeAgoConfig.titleFormat = 'MMMM Do YYYY, h:mm:ss a';
+				$rootScope.testDate = new Date().getTime() / 1000;
+				var element = angular.element('<span am-time-ago="testDate"></span>');
+				element = $compile(element)($rootScope);
+				$rootScope.$digest();
+				var testDateWithCustomFormatting = moment($rootScope.testDate).format(amTimeAgoConfig.titleFormat);
+				expect(element.attr('title')).toBe(testDateWithCustomFormatting);
+			});
 		});
 
 		describe('am-without-suffix attribute', function () {
@@ -409,6 +439,65 @@ describe('module angularMoment', function () {
 		});
 	});
 
+	describe('amDifference filter', function () {
+		var amDifference;
+
+		beforeEach(function () {
+			amDifference = $filter('amDifference');
+		});
+
+		it('should take the difference of two dates in milliseconds', function () {
+			var today = new Date(2012, 0, 22, 0, 0, 0);
+			var testDate = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 13, 33, 33);
+			expect(amDifference(testDate, today)).toBe(48813000);
+		});
+
+		it('should support passing "years", "months", "days", etc as a units parameter', function () {
+			var test = new Date(2012, 0, 22, 4, 46, 54);
+			var testDate1 = new Date(2013, 0, 22, 4, 46, 54);
+			expect(amDifference(testDate1, test, 'years')).toBe(1);
+			var testDate2 = new Date(2012, 1, 22, 4, 46, 54);
+			expect(amDifference(testDate2, test, 'months')).toBe(1);
+			var testDate3 = new Date(2012, 0, 23, 4, 46, 54);
+			expect(amDifference(testDate3, test, 'days')).toBe(1);
+		});
+
+		it('should allow rounding to be disabled via parameter', function () {
+			var test = new Date(2012, 0, 22, 4, 46, 54);
+			var testDate1 = new Date(test.getFullYear() + 1, test.getMonth() + 6, test.getDate());
+			expect(amDifference(testDate1, test, 'years')).toBe(1);
+			expect(amDifference(testDate1, test, 'years', true)).toBeCloseTo(1.5);
+		});
+
+		it('dates from the future should return negative values', function () {
+			var today = new Date(2012, 0, 22, 4, 46, 54);
+			var testDate = new Date(2013, 0, 22, 4, 46, 54);
+			expect(String(amDifference(today, testDate))).toContain('-');
+		});
+
+		it('should gracefully handle undefined values', function () {
+			expect(amDifference()).toBe('');
+		});
+
+		it('should accept a numeric unix timestamp (milliseconds since the epoch) as input', function () {
+			expect(amDifference(new Date(2012, 0, 22, 4, 46, 55).getTime(), new Date(2012, 0, 22, 4, 46, 54).getTime())).toBe(1000);
+		});
+
+		it('should apply the "utc" preprocessor when the string "utc" is given as a preprocessor argument', function () {
+			expect(amDifference([2012, 0, 22, 0, 0, 1], Date.UTC(2012, 0, 22, 0, 0, 0), null, null, 'utc')).toBe(1000);
+			expect(amDifference(Date.UTC(2012, 0, 22, 0, 0, 1), [2012, 0, 22, 0, 0, 0], null, null, null, 'utc')).toBe(1000);
+		});
+
+		it('should apply the "unix" preprocessor if angularMomentConfig.preprocess is set to "unix" and no preprocessor is given', function () {
+			angularMomentConfig.preprocess = 'unix';
+			expect(amDifference(100001, 100000)).toBe(1000);
+		});
+
+		it('should return an empty string for invalid input', function () {
+			expect(amDifference('blah blah')).toBe('');
+		});
+	});
+
 	describe('amDateFormat filter', function () {
 		var amDateFormat;
 
@@ -475,28 +564,83 @@ describe('module angularMoment', function () {
 		});
 	});
 
+
+	describe('amTimeAgo filter', function () {
+		var amTimeAgo;
+
+		beforeEach(function () {
+			amTimeAgo = $filter('amTimeAgo');
+		});
+
+		it('should support return the time ago as text', function () {
+			var date = new Date();
+			expect(amTimeAgo(date)).toBe('a few seconds ago');
+		});
+
+		it('should remove suffix from the result if the third parameter (suffix) is true', function () {
+			var date = new Date();
+			expect(amTimeAgo(date, null, true)).toBe('a few seconds');
+		});
+
+		it('should gracefully handle undefined values', function () {
+			expect(amTimeAgo()).toBe('');
+		});
+
+		it('should gracefully handle invalid input', function () {
+			expect(amTimeAgo('noDate')).toBe('');
+		});
+
+	});
+
 	describe('amMoment service', function () {
-		describe('#changeLanguage', function () {
-			it('should return the current language', function () {
-				expect(amMoment.changeLanguage()).toBe('en');
+		describe('#changeLocale', function () {
+			it('should convert today\'s date to custom calendar format', function () {
+				var today = new Date();
+				amMoment.changeLocale('en', {calendar: {sameDay: '[This Day]'}});
+				var amCalendar = $filter('amCalendar');
+				var testDate = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 13, 33, 33);
+				expect(amCalendar(testDate)).toBe('This Day');
 			});
 
-			it('should broadcast an angularMoment:languageChange event on the root scope if a language is specified', function () {
+			it('should return the current locale', function () {
+				expect(amMoment.changeLocale()).toBe('en');
+			});
+
+			it('should broadcast an angularMoment:localeChanged event on the root scope if a locale is specified', function () {
 				var eventBroadcasted = false;
-				$rootScope.$on('amMoment:languageChange', function () {
+				$rootScope.$on('amMoment:localeChanged', function () {
 					eventBroadcasted = true;
 				});
-				amMoment.changeLanguage('fr');
+				amMoment.changeLocale('fr');
 				expect(eventBroadcasted).toBe(true);
 			});
 
-			it('should not broadcast an angularMoment:languageChange event on the root scope if no language is specified', function () {
+			it('should not broadcast an angularMoment:localeChanged event on the root scope if no locale is specified', function () {
 				var eventBroadcasted = false;
-				$rootScope.$on('amMoment:languageChange', function () {
+				$rootScope.$on('amMoment:localeChanged', function () {
 					eventBroadcasted = true;
 				});
-				amMoment.changeLanguage();
+				amMoment.changeLocale();
 				expect(eventBroadcasted).toBe(false);
+			});
+		});
+
+		describe('#changeTimezone', function () {
+			it('Should update the current timezone', function () {
+				amMoment.changeTimezone('UTC');
+				expect(amMoment.applyTimezone(moment()).utcOffset()).toBe(0);
+
+				amMoment.changeTimezone('Pacific/Tahiti');
+				expect(amMoment.applyTimezone(moment()).utcOffset()).toBe(-600);
+			});
+
+			it('should broadcast an angularMoment:timezoneChanged event on the root scope with the new timezone value', function () {
+				var eventBroadcasted = false;
+				$rootScope.$on('amMoment:timezoneChanged', function () {
+					eventBroadcasted = true;
+				});
+				amMoment.changeTimezone('UTC');
+				expect(eventBroadcasted).toBe(true);
 			});
 		});
 

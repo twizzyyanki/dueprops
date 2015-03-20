@@ -1,0 +1,19 @@
+site-header
+  //- header.jade
+main(layout="row" layout-fill)
+  md-sidenav.md-sidenav-left(md-component-id="left")
+    md-content.propgrid(layout="row")
+      .prop(ng-repeat="prop in currentUser.props")
+        img(ng-click="openPropDialog(prop)" ng-src="{{prop.icon}}" class="icon")
+
+  md-content.feed(layout="row" style="align-items: flex-start; align-content: flex-start; width: 100%")
+    md-toolbar.md-theme-light
+      .md-toolbar-tools
+        | My Feed
+    prop-card(ng-repeat="card in currentUser.feed" ng-animate="'animate'")
+      //- prop-card.jade
+
+footer(ng-if="currentUser")
+  | Copyright &copy; 2010-2014 DueProps.com
+  | &nbsp;∙&nbsp;
+  a(href="mailto:support@dueprops.com") Support
