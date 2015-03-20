@@ -1,8 +1,10 @@
-var rootRef = new Firebase("https://scorching-torch-859.firebaseio.com/");
-var usersRef = rootRef.child('users');
+
 
 DueProps.controller('SiteHeaderController', ['$rootScope', '$scope', '$firebase','$firebaseSimpleLogin',
-  function($rootScope, $scope, $firebase, $firebaseSimpleLogin) {
+ function($rootScope, $scope, $firebase, $firebaseSimpleLogin) {
+
+  var rootRef = new Firebase("https://scorching-torch-859.firebaseio.com/");
+  var usersRef = rootRef.child('users');
 
   // Create a Firebase Simple Login object
   $scope.auth = $firebaseSimpleLogin(rootRef);
@@ -21,7 +23,8 @@ DueProps.controller('SiteHeaderController', ['$rootScope', '$scope', '$firebase'
     // site presence
     user.active = true;
     user.id = escapeEmailAddress(user.email);
-    userRef = usersRef.child(user.id);
+
+    var userRef = usersRef.child(user.id);
     userRef.on('value', function(snap){
       if(snap.val()) {
         userRef.child('active').set(true);

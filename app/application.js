@@ -1,5 +1,10 @@
 window.DueProps = angular.module("DueProps", ['firebase','angularMoment','ngAnimate','ngMaterial','ui.bootstrap']);
 
+require('./directives.js');
+require('./props.js');
+require('./shared/header-controller.js');
+require('./shared/prop-card.js');
+
 DueProps.run(['$rootScope', function($rootScope) {
   // set globals we want available in ng expressions
   $rootScope._ = window._;
@@ -41,3 +46,14 @@ DueProps.controller('Application', ['$rootScope','$scope', '$materialSidenav', '
     });
   };
 }]);
+
+window.escapeEmailAddress = function(email) {
+  if (!email) {
+    return false;
+  }
+
+  // Replace '.' (not allowed in a Firebase key) with ',' (not allowed in an email address)
+  email = email.toLowerCase();
+  email = email.replace(/\./g, ',');
+  return email;
+};

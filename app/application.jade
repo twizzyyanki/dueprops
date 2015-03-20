@@ -1,8 +1,6 @@
 site-header
   //- header.jade
 main(layout="horizontal" layout-fill)
-  public-content(ng-if="!currentUser")
-    include homepage
   material-sidenav(flex layout="horizontal" component-id="left" ng-show="_.any(Props.props)")
     material-content.propgrid
       .prop(ng-repeat="prop in Props.props")
@@ -13,9 +11,19 @@ main(layout="horizontal" layout-fill)
       .container
         .jumbotron.col-md-10
           img.img-responsive(src="/img/content-props/welcome.jpg")
-          p My name is Obie Fernandez and I'm the CEO and Founder of DueProps.com.
-          p I had the idea for DueProps while I was running my own web design and development agency. It turned out that even when you have a great company culture, it's hard to keep employees happy and motivated unless you make them feel appreciated every day.
-          p But how do you get yourself and your people to remember to give thanks to each other every day? Turns out the secret is not that complicated. You just need a <em>system</em>. But not any old system will do. It needs to be fun, and the tokens of appreciation have to be memorable, so that it doesn't take a lot of time to figure out what you want to say. In fact, with most props, just a word or two of description will suffice.x
+          p It turns out that even when you have a great company culture, it's hard to keep employees happy and motivated unless you make them feel appreciated every day.
+          p
+            | The secret to making sure daily appreciation happens is not that complicated.
+            | You just need a <em>system</em>. Not any old system will do. It needs to be fun,
+            | and the tokens of appreciation have to be memorable, so that it doesn't take a
+            | lot of time to figure out what you want to say. In fact, with most props, just
+            | a word or two of description will suffice.
+          p
+            strong Obie Fernandez
+          p CEO & Founder, DueProps
+
+          button.btn.btn-primary
+            | Get your first set of props to give to others
     material-toolbar.material-theme-light(ng-show="_.any(Props.feed)")
       .material-toolbar-tools
         | My Feed

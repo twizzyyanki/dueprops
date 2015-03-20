@@ -59,12 +59,3 @@ DueProps.factory('Props', ['$rootScope', '$firebase',
 
   return service;
 }]);
-
-function escapeEmailAddress(email) {
-  if (!email) return false
-
-  // Replace '.' (not allowed in a Firebase key) with ',' (not allowed in an email address)
-  email = email.toLowerCase();
-  email = email.replace(/\./g, ',');
-  return email;
-}
