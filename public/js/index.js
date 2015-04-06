@@ -250,8 +250,10 @@ angular.module('dueprops.services').factory('Props', ['$rootScope', '$firebase',
 
     init: function(user) {
       this.user = user;
-      this.user.feed = $firebase(Refs.feed(user.email)).$asArray();
-      this.user.props = $firebase(Refs.props).$asArray();
+      if (user) {
+        this.user.feed = $firebase(Refs.feed(user.email)).$asArray();
+        this.user.props = $firebase(Refs.props).$asArray();
+      }
     },
 
     draft: function(prop) {
