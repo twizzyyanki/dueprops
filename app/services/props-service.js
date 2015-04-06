@@ -1,5 +1,4 @@
-angular.module('dueprops.services').factory('Props', ['$rootScope', '$firebase', 'Refs',
- function($rootScope, $firebase, Refs) {
+angular.module('dueprops.services').factory('Props', ['$rootScope', '$firebaseArray', 'Refs', function($rootScope, $firebaseArray, Refs) {
   var service = {
     // initialized below
     user: null,
@@ -7,8 +6,8 @@ angular.module('dueprops.services').factory('Props', ['$rootScope', '$firebase',
     init: function(user) {
       this.user = user;
       if (user) {
-        this.user.feed = $firebase(Refs.feed(user.email)).$asArray();
-        this.user.props = $firebase(Refs.props).$asArray();
+        this.user.feed = $firebaseArray(Refs.feed(user.email));
+        this.user.props = $firebaseArray(Refs.props);
       }
     },
 
