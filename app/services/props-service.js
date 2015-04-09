@@ -6,7 +6,10 @@ angular.module('dueprops.services').factory('Props', ['$rootScope', '$firebaseAr
     init: function(user) {
       this.user = user;
       if (user) {
-        this.user.feed = $firebaseArray(Refs.feed(user.email));
+        var self = this;
+        $firebaseArray(Refs.feed(user.email)).$loaded().then(function(result) {
+          self.user.feed = result[0];
+        });
         this.user.props = $firebaseArray(Refs.props);
       }
     },
