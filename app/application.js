@@ -9,6 +9,7 @@ require('./services/props-service.js');
 require('./services/refs-service.js');
 require('./services/toast-service.js');
 require('./services/users-service.js');
+require('./services/feed-service.js');
 
 require('./controllers/header-controller.js');
 

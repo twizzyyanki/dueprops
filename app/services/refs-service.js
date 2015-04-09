@@ -8,14 +8,12 @@ angular.module('dueprops.services')
       // define every standard ref used in the application here
       // so that they are defined just once, not scattered throughout
       return {
-        root: rootRef,
-        membership: rootRef.child('index/membership'),
+        root:          rootRef,
+        membership:    rootRef.child('index/membership'),
         notifications: rootRef.child('notifications'),
-        props: new Firebase(firebaseUrl + '/props'),
-        users: rootRef.child('users'),
-        feed: function(email) {
-          return new Firebase(firebaseUrl + '/feed').child(escapeEmailAddress(email)).child('received');
-        },
+        props:         new Firebase(firebaseUrl + '/props'),
+        users:         rootRef.child('users'),
+        feed:          new Firebase(firebaseUrl + '/feed'),
         isAdmin: function() {
           var auth = rootRef.getAuth()?rootRef.getAuth().auth:false;
           return auth && auth.isAdmin;
