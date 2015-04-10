@@ -1,25 +1,24 @@
-var browserify = require('browserify'),
-    bower = require('gulp-bower'),
-    concat = require('gulp-concat'),
-    karma = require('gulp-karma'),
-    gulp = require('gulp'),
-    browserSync = require('browser-sync'),
-    gutil = require('gulp-util'),
-    shell = require('gulp-shell'),
-    jade = require('gulp-jade'),
-    jshint = require('gulp-jshint'),
-    less = require('gulp-less'),
-    minifyHtml = require('gulp-minify-html'),
-    nodemon = require('gulp-nodemon'),
-    path = require('path'),
-    protractor = require('gulp-protractor').protractor,
-    source = require('vinyl-source-stream'),
-    stringify = require('stringify'),
-    watchify = require('watchify'),
-    mocha = require('gulp-mocha'),
-    exit = require('gulp-exit');
-
+var browserify = require('browserify');
+var bower = require('gulp-bower');
+var concat = require('gulp-concat');
+var karma = require('gulp-karma');
+var gulp = require('gulp');
+var browserSync = require('browser-sync');
 var reload = browserSync.reload;
+var gutil = require('gulp-util');
+var shell = require('gulp-shell');
+var jade = require('gulp-jade');
+var jshint = require('gulp-jshint');
+var less = require('gulp-less');
+var minifyHtml = require('gulp-minify-html');
+var nodemon = require('gulp-nodemon');
+var path = require('path');
+var protractor = require('gulp-protractor').protractor;
+var source = require('vinyl-source-stream');
+var stringify = require('stringify');
+var watchify = require('watchify');
+var mocha = require('gulp-mocha');
+var exit = require('gulp-exit');
 var modRewrite = require('connect-modrewrite');
 
 var paths = {
@@ -104,8 +103,7 @@ gulp.task('nodemon', function () {
 gulp.task('scripts', function() {
   gulp.src(paths.scripts)
     .pipe(concat('index.js'))
-    .pipe(gulp.dest('./public/js'))
-    .pipe(browserSync.reload({ stream: true }));
+    .pipe(gulp.dest('./public/js'));
 });
 
 gulp.task('watchify', function() {
