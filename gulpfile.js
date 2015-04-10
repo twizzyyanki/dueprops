@@ -3,6 +3,7 @@ var browserify = require('browserify'),
     concat = require('gulp-concat'),
     karma = require('gulp-karma'),
     gulp = require('gulp'),
+    browserSync = require('browser-sync'),
     gutil = require('gulp-util'),
     shell = require('gulp-shell'),
     jade = require('gulp-jade'),
@@ -17,6 +18,9 @@ var browserify = require('browserify'),
     watchify = require('watchify'),
     mocha = require('gulp-mocha'),
     exit = require('gulp-exit');
+
+var reload = browserSync.reload;
+var modRewrite = require('connect-modrewrite');
 
 var paths = {
   public: 'public/**',
@@ -53,6 +57,19 @@ var paths = {
       'test/server/**/*.js']
 };
 
+gulp.task('browser-sync', function() {
+  browserSync({
+    server: {
+      baseDir: "./public",
+      middleware: [
+        modRewrite([
+          '!\\.\\w+$ /index.html [L]'
+        ])
+      ]
+    }
+  });
+});
+
 gulp.task('jade', function() {
   gulp.src(paths.jade)
     .pipe(jade())
@@ -87,7 +104,8 @@ gulp.task('nodemon', function () {
 gulp.task('scripts', function() {
   gulp.src(paths.scripts)
     .pipe(concat('index.js'))
-    .pipe(gulp.dest('./public/js'));
+    .pipe(gulp.dest('./public/js'))
+    .pipe(browserSync.reload({ stream: true }));
 });
 
 gulp.task('watchify', function() {
@@ -133,6 +151,8 @@ gulp.task('watch', function() {
   gulp.watch(paths.jade, ['jade']);
   gulp.watch(paths.styles, ['less']);
   gulp.watch(paths.scripts, ['browserify']);
+
+  gulp.watch([paths.jade, paths.styles, paths.scripts]).on('change', reload);
 });
 
 gulp.task('bower', function() {
@@ -191,7 +211,7 @@ gulp.task('test:one', ['browserify'], function() {
 
 gulp.task('build', ['bower', 'jade','less','browserify','static-files']);
 gulp.task('production', ['nodemon','build']);
-gulp.task('default', ['nodemon', 'build', 'watch']);
+gulp.task('default', ['browser-sync', 'nodemon', 'build', 'watch']);
 gulp.task('heroku:production', ['db-migrate', 'build']);
 gulp.task('heroku:staging', ['build']);
 gulp.task('test', ['test:client','test:server']);

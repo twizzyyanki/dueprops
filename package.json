@@ -19,6 +19,7 @@
     "aws-sdk": "latest",
     "browserify": "^5.12.0",
     "chromedriver": "^2.12.0",
+    "connect-modrewrite": "^0.7.11",
     "db-migrate": "latest",
     "gulp": "^3.8.7",
     "gulp-concat": "^2.4.1",
