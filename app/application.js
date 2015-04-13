@@ -4,18 +4,6 @@ angular.module('dueprops.filters', []);
 angular.module("dueprops.directives", []);
 angular.module('dueprops.controllers', []);
 
-require('./services/authentication-service.js');
-require('./services/props-service.js');
-require('./services/refs-service.js');
-require('./services/toast-service.js');
-require('./services/users-service.js');
-require('./services/feed-service.js');
-
-require('./controllers/header-controller.js');
-
-require('./directives/dueprops-directives.js');
-require('./directives/prop-card.js');
-
 window.DueProps = angular.module("DueProps", [
   'dueprops.services',
   'dueprops.directives',

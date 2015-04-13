@@ -1,5 +1,4 @@
 var browserify = require('browserify');
-var bower = require('gulp-bower');
 var concat = require('gulp-concat');
 var karma = require('gulp-karma');
 var gulp = require('gulp');
@@ -10,7 +9,7 @@ var shell = require('gulp-shell');
 var jade = require('gulp-jade');
 var jshint = require('gulp-jshint');
 var less = require('gulp-less');
-var minifyHtml = require('gulp-minify-html');
+// var minifyHtml = require('gulp-minify-html');
 var nodemon = require('gulp-nodemon');
 var path = require('path');
 var protractor = require('gulp-protractor').protractor;
@@ -20,6 +19,9 @@ var watchify = require('watchify');
 var mocha = require('gulp-mocha');
 var exit = require('gulp-exit');
 var modRewrite = require('connect-modrewrite');
+var inject = require('gulp-inject');
+var bowerFiles = require('main-bower-files');
+var _ = require('lodash');
 
 var paths = {
   public: 'public/**',
@@ -56,6 +58,30 @@ var paths = {
       'test/server/**/*.js']
 };
 
+gulp.task('jade', function() {
+  gulp.src(paths.jade)
+    .pipe(jade())
+    .pipe(gulp.dest('./public/'));
+});
+
+
+gulp.task('scripts', function() {
+  gulp.src(paths.scripts)
+    .pipe(gulp.dest('./public/js'));
+});
+ 
+
+gulp.task('inject', function () {
+  var injectOptions = {
+    ignorePath: ['public']
+  };
+ 
+  return gulp.src('./public/index.html')
+    .pipe(inject(gulp.src(bowerFiles(), { read: false }), _.merge({}, injectOptions, { name: 'bower' })))
+    .pipe(inject(gulp.src(['./public/js/**/*.js', './public/**/*.css']), injectOptions))
+    .pipe(gulp.dest('./public'));
+});
+
 gulp.task('browser-sync', function() {
   browserSync({
     server: {
@@ -69,11 +95,6 @@ gulp.task('browser-sync', function() {
   });
 });
 
-gulp.task('jade', function() {
-  gulp.src(paths.jade)
-    .pipe(jade())
-    .pipe(gulp.dest('./public/'));
-});
 
 gulp.task('less', function () {
   gulp.src(paths.styles)
@@ -98,12 +119,6 @@ gulp.task('nodemon', function () {
     .on('restart',['jade','less'], function () {
       console.log('>> node restart');
     });
-});
-
-gulp.task('scripts', function() {
-  gulp.src(paths.scripts)
-    .pipe(concat('index.js'))
-    .pipe(gulp.dest('./public/js'));
 });
 
 gulp.task('watchify', function() {
@@ -151,11 +166,6 @@ gulp.task('watch', function() {
   gulp.watch(paths.scripts, ['browserify']);
 
   gulp.watch([paths.jade, paths.styles, paths.scripts]).on('change', reload);
-});
-
-gulp.task('bower', function() {
-  return bower()
-    .pipe(gulp.dest('public/lib/'));
 });
 
 gulp.task('test:client', ['browserify'], function() {
@@ -207,7 +217,7 @@ gulp.task('test:one', ['browserify'], function() {
   });
 });
 
-gulp.task('build', ['bower', 'jade','less','browserify','static-files']);
+gulp.task('build', ['jade', 'less', 'browserify', 'static-files', 'inject']);
 gulp.task('production', ['nodemon','build']);
 gulp.task('default', ['browser-sync', 'nodemon', 'build', 'watch']);
 gulp.task('heroku:production', ['db-migrate', 'build']);
