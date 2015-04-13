@@ -17,6 +17,7 @@
   "devDependencies": {
     "angular-ui-router": "^0.2.11",
     "aws-sdk": "latest",
+    "browser-sync": "^2.6.1",
     "browserify": "^5.12.0",
     "chromedriver": "^2.12.0",
     "connect-modrewrite": "^0.7.11",

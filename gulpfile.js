@@ -9,7 +9,6 @@ var shell = require('gulp-shell');
 var jade = require('gulp-jade');
 var jshint = require('gulp-jshint');
 var less = require('gulp-less');
-// var minifyHtml = require('gulp-minify-html');
 var nodemon = require('gulp-nodemon');
 var path = require('path');
 var protractor = require('gulp-protractor').protractor;
@@ -71,7 +70,7 @@ gulp.task('scripts', function() {
 });
  
 
-gulp.task('inject', ['jade'], function() {
+gulp.task('inject', ['jade', 'scripts'], function() {
   var injectOptions = {
     ignorePath: ['public']
   };
