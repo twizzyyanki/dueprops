@@ -59,7 +59,7 @@ var paths = {
 };
 
 gulp.task('jade', function() {
-  gulp.src(paths.jade)
+  return gulp.src(paths.jade)
     .pipe(jade())
     .pipe(gulp.dest('./public/'));
 });
@@ -71,7 +71,7 @@ gulp.task('scripts', function() {
 });
  
 
-gulp.task('inject', function () {
+gulp.task('inject', ['jade'], function() {
   var injectOptions = {
     ignorePath: ['public']
   };
@@ -217,7 +217,7 @@ gulp.task('test:one', ['browserify'], function() {
   });
 });
 
-gulp.task('build', ['jade', 'less', 'browserify', 'static-files', 'inject']);
+gulp.task('build', ['less', 'browserify', 'static-files', 'inject']);
 gulp.task('production', ['nodemon','build']);
 gulp.task('default', ['browser-sync', 'nodemon', 'build', 'watch']);
 gulp.task('heroku:production', ['db-migrate', 'build']);
