@@ -127,25 +127,6 @@ gulp.task('nodemon', function () {
     });
 });
 
-/*gulp.task('watchify', function() {
-  var bundler = watchify(browserify('./app/application.js', watchify.args));
-
-  bundler.transform(stringify(['.html']));
-  // bundler.transform(es6ify);
-
-  bundler.on('update', rebundle);
-
-  function rebundle() {
-    return bundler.bundle()
-      // log errors if they happen
-      .on('success', gutil.log.bind(gutil, 'Browserify Rebundled'))
-      .on('error', gutil.log.bind(gutil, 'Browserify Error'))
-      .pipe(source('index.js'))
-      .pipe(gulp.dest('./public/js'));
-  }
-  return rebundle();
-});*/
-
 //runs locally only
 gulp.task('codeclimate', shell.task([
   'CODECLIMATE_REPO_TOKEN=5bdb37d182c2eee89c140cf44f338a0a20f6bc0ebaa648d7cc660dece14af397 codeclimate < "'+process.env.PWD+'/coverage/Chrome 39.0.2171 (Mac OS X 10.9.5)/lcov.info"'
@@ -156,22 +137,11 @@ gulp.task('db-migrate', shell.task([
   'db-migrate up'
 ]));
 
-/*gulp.task('browserify', function() {
-  var b = browserify();
-  b.add('./app/application.js');
-  return b.bundle()
-  .on('success', gutil.log.bind(gutil, 'Browserify Rebundled'))
-  .on('error', gutil.log.bind(gutil, 'Browserify Error: in browserify gulp task'))
-  .pipe(source('index.js'))
-  .pipe(gulp.dest('./public/js'));
-});*/
-
 gulp.task('watch',function() {
   gulp.watch([paths.jade, paths.scripts], function() {
     gulp.start('inject');
   });
   gulp.watch(paths.styles, ['less']);
-  // gulp.watch(paths.scripts, ['scripts']); //commented Browserify task above and replaced here with scripts task
 
   gulp.watch([paths.jade, paths.styles, paths.scripts]).on('change', reload);
 });
