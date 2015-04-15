@@ -22,7 +22,7 @@ function run() {
     extended: true
   }));
 
-	app.dir = appdir;
+	//app.dir = appdir;
 
 	// WHERE ARE THE STATIC FILES?
 	// app.use(express.static(app.dir + '/app'));
