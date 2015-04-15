@@ -183,7 +183,6 @@ gulp.task('test:one', function() {//remove browserify as a prerequisite
   if(argv[0] === '--file' && argv[1] !== undefined) {
     testPaths.push(argv[1].trim());
   }
-
   return gulp.src(testPaths)
   .pipe(karma({
     configFile: 'karma.conf.js',
