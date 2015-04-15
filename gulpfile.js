@@ -58,6 +58,7 @@ var paths = {
 };
 
 gulp.task('jade', function() {
+  console.log('jade called');
   return gulp.src(paths.jade)
     .pipe(jade())
     .pipe(gulp.dest('./public/'));
@@ -65,12 +66,15 @@ gulp.task('jade', function() {
 
 
 gulp.task('scripts', function() {
+  console.log('script called');
   gulp.src(paths.scripts)
     .pipe(gulp.dest('./public/js'));
+
 });
  
 
 gulp.task('inject', ['jade', 'scripts'], function() {
+  console.log('inject called');
   var injectOptions = {
     ignorePath: ['public']
   };
@@ -81,7 +85,8 @@ gulp.task('inject', ['jade', 'scripts'], function() {
     .pipe(gulp.dest('./public'));
 });
 
-gulp.task('browser-sync', function() {
+gulp.task('browser-sync', ['inject'], function() {
+  console.log('browser-sync called');
   browserSync({
     server: {
       baseDir: "./public",
@@ -96,6 +101,7 @@ gulp.task('browser-sync', function() {
 
 
 gulp.task('less', function () {
+  console.log('less called');
   gulp.src(paths.styles)
     .pipe(less({
       paths: [ path.join(__dirname, 'styles') ]
@@ -104,6 +110,7 @@ gulp.task('less', function () {
 });
 
 gulp.task('static-files',function(){
+  console.log('static called');
   return gulp.src(paths.staticFiles)
     .pipe(gulp.dest('public/'));
 });
@@ -120,7 +127,7 @@ gulp.task('nodemon', function () {
     });
 });
 
-gulp.task('watchify', function() {
+/*gulp.task('watchify', function() {
   var bundler = watchify(browserify('./app/application.js', watchify.args));
 
   bundler.transform(stringify(['.html']));
@@ -137,7 +144,7 @@ gulp.task('watchify', function() {
       .pipe(gulp.dest('./public/js'));
   }
   return rebundle();
-});
+});*/
 
 //runs locally only
 gulp.task('codeclimate', shell.task([
@@ -149,7 +156,7 @@ gulp.task('db-migrate', shell.task([
   'db-migrate up'
 ]));
 
-gulp.task('browserify', function() {
+/*gulp.task('browserify', function() {
   var b = browserify();
   b.add('./app/application.js');
   return b.bundle()
@@ -157,17 +164,19 @@ gulp.task('browserify', function() {
   .on('error', gutil.log.bind(gutil, 'Browserify Error: in browserify gulp task'))
   .pipe(source('index.js'))
   .pipe(gulp.dest('./public/js'));
-});
+});*/
 
-gulp.task('watch', function() {
-  gulp.watch(paths.jade, ['jade']);
+gulp.task('watch',function() {
+  gulp.watch([paths.jade, paths.scripts], function() {
+    gulp.start('inject');
+  });
   gulp.watch(paths.styles, ['less']);
-  gulp.watch(paths.scripts, ['browserify']);
+  // gulp.watch(paths.scripts, ['scripts']); //commented Browserify task above and replaced here with scripts task
 
   gulp.watch([paths.jade, paths.styles, paths.scripts]).on('change', reload);
 });
 
-gulp.task('test:client', ['browserify'], function() {
+gulp.task('test:client', function() {//remove browserify as a prerequisite
   return gulp.src(paths.clientTests)
   .pipe(karma({
     configFile: 'karma.conf.js',
@@ -196,7 +205,7 @@ gulp.task('test:e2e',function(cb) {
   .on('end', cb);
 });
 
-gulp.task('test:one', ['browserify'], function() {
+gulp.task('test:one', function() {//remove browserify as a prerequisite
   var argv = process.argv.slice(3);
 
   var testPaths = paths.clientTests;
@@ -216,9 +225,9 @@ gulp.task('test:one', ['browserify'], function() {
   });
 });
 
-gulp.task('build', ['less', 'browserify', 'static-files', 'inject']);
+gulp.task('build', ['less', 'static-files']);//remove browserify as a prerequisite 
 gulp.task('production', ['nodemon','build']);
-gulp.task('default', ['browser-sync', 'nodemon', 'build', 'watch']);
+gulp.task('default', ['nodemon', 'build', 'browser-sync', 'watch']);
 gulp.task('heroku:production', ['db-migrate', 'build']);
 gulp.task('heroku:staging', ['build']);
 gulp.task('test', ['test:client','test:server']);
