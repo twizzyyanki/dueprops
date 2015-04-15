@@ -3,7 +3,7 @@ var consolidate = require('consolidate');
 global._ = require('lodash');
 global.t = require('moment');
 
-function run(appdir) {
+function run() {
 	var express = require('express');
 	var app = express();
 	var bodyParser = require('body-parser');
@@ -48,5 +48,5 @@ function run(appdir) {
 	});
 
 }
-console.log(__dirname);
+
 run(__dirname);
