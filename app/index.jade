@@ -1,8 +1,28 @@
 doctype html
 html(lang="en" ng-app="DueProps")
-  head
-    title DueProps 2.0 | Keep Culture Healthy with Appreciation
-    include views/shared/head
-  body(dueprops layout="column" layout-fill ng-cloak)
+	head
+		title DueProps 2.0 | Keep Culture Healthy with Appreciation
+		meta(name='HandheldFriendly' content='True')
+		meta(name='MobileOptimized' content='320')
+		meta(name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no')
 
+		base(href="/")
 
+		// CDN provided
+		link(rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" type="text/css")
+		link(rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic" type="text/css")
+
+		//build:css /dist/style.css
+		link(rel="stylesheet" href="/lib/angular-material/angular-material.css" type="text/css")
+		link(rel="stylesheet" href="/css/animations.css" type="text/css")
+		link(rel="stylesheet" href="/css/application.css" type="text/css")
+		link(rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css")
+		link(rel="stylesheet" href="/css/fonts.css" type="text/css")
+		// endbuild
+
+	body(dueprops layout="column" layout-fill ng-cloak)
+		// bower:js 
+		// endinject 
+		// inject:js 
+		// endinject 
+		

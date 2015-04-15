@@ -1,5 +1,3 @@
-//var browserify = require('browserify');
-var bower = require('gulp-bower');
 var concat = require('gulp-concat');
 var karma = require('gulp-karma');
 var gulp = require('gulp');
@@ -10,7 +8,6 @@ var shell = require('gulp-shell');
 var jade = require('gulp-jade');
 var jshint = require('gulp-jshint');
 var less = require('gulp-less');
-var minifyHtml = require('gulp-minify-html');
 var nodemon = require('gulp-nodemon');
 var path = require('path');
 var protractor = require('gulp-protractor').protractor;
@@ -20,6 +17,9 @@ var watchify = require('watchify');
 var mocha = require('gulp-mocha');
 var exit = require('gulp-exit');
 var modRewrite = require('connect-modrewrite');
+var inject = require('gulp-inject');
+var bowerFiles = require('main-bower-files');
+var _ = require('lodash');
 
 var paths = {
   public: 'public/**',
@@ -56,7 +56,36 @@ var paths = {
       'test/server/**/*.js']
 };
 
-gulp.task('browser-sync', function() {
+gulp.task('jade', function() {
+  console.log('jade called');
+  return gulp.src(paths.jade)
+    .pipe(jade())
+    .pipe(gulp.dest('./public/'));
+});
+
+
+gulp.task('scripts', function() {
+  console.log('script called');
+  gulp.src(paths.scripts)
+    .pipe(gulp.dest('./public/js'));
+
+});
+ 
+
+gulp.task('inject', ['jade', 'scripts'], function() {
+  console.log('inject called');
+  var injectOptions = {
+    ignorePath: ['public']
+  };
+ 
+  return gulp.src('./public/index.html')
+    .pipe(inject(gulp.src(bowerFiles(), { read: false }), _.merge({}, injectOptions, { name: 'bower' })))
+    .pipe(inject(gulp.src(['./public/js/**/*.js', './public/**/*.css']), injectOptions))
+    .pipe(gulp.dest('./public'));
+});
+
+gulp.task('browser-sync', ['inject'], function() {
+  console.log('browser-sync called');
   browserSync({
     server: {
       baseDir: "./public",
@@ -69,13 +98,9 @@ gulp.task('browser-sync', function() {
   });
 });
 
-gulp.task('jade', function() {
-  gulp.src(paths.jade)
-    .pipe(jade())
-    .pipe(gulp.dest('./public/'));
-});
 
 gulp.task('less', function () {
+  console.log('less called');
   gulp.src(paths.styles)
     .pipe(less({
       paths: [ path.join(__dirname, 'styles') ]
@@ -84,6 +109,7 @@ gulp.task('less', function () {
 });
 
 gulp.task('static-files',function(){
+  console.log('static called');
   return gulp.src(paths.staticFiles)
     .pipe(gulp.dest('public/'));
 });
@@ -100,31 +126,6 @@ gulp.task('nodemon', function () {
     });
 });
 
-gulp.task('scripts', function() {
-  gulp.src(paths.scripts)
-    .pipe(concat('index.js'))
-    .pipe(gulp.dest('./public/js'));
-});
-
-gulp.task('watchify', function() {
-  var bundler = watchify(browserify('./app/application.js', watchify.args));
-
-  bundler.transform(stringify(['.html']));
-  // bundler.transform(es6ify);
-
-  bundler.on('update', rebundle);
-
-  function rebundle() {
-    return bundler.bundle()
-      // log errors if they happen
-      .on('success', gutil.log.bind(gutil, 'Browserify Rebundled'))
-      .on('error', gutil.log.bind(gutil, 'Browserify Error'))
-      .pipe(source('index.js'))
-      .pipe(gulp.dest('./public/js'));
-  }
-  return rebundle();
-});
-
 //runs locally only
 gulp.task('codeclimate', shell.task([
   'CODECLIMATE_REPO_TOKEN=5bdb37d182c2eee89c140cf44f338a0a20f6bc0ebaa648d7cc660dece14af397 codeclimate < "'+process.env.PWD+'/coverage/Chrome 39.0.2171 (Mac OS X 10.9.5)/lcov.info"'
@@ -135,30 +136,16 @@ gulp.task('db-migrate', shell.task([
   'db-migrate up'
 ]));
 
-gulp.task('browserify', function() {
-  var b = browserify();
-  b.add('./app/application.js');
-  return b.bundle()
-  .on('success', gutil.log.bind(gutil, 'Browserify Rebundled'))
-  .on('error', gutil.log.bind(gutil, 'Browserify Error: in browserify gulp task'))
-  .pipe(source('index.js'))
-  .pipe(gulp.dest('./public/js'));
-});
-
-gulp.task('watch', function() {
-  gulp.watch(paths.jade, ['jade']);
+gulp.task('watch',function() {
+  gulp.watch([paths.jade, paths.scripts], function() {
+    gulp.start('inject');
+  });
   gulp.watch(paths.styles, ['less']);
-  gulp.watch(paths.scripts, ['browserify']);
 
   gulp.watch([paths.jade, paths.styles, paths.scripts]).on('change', reload);
 });
 
-gulp.task('bower', function() {
-  return bower()
-    .pipe(gulp.dest('public/lib/'));
-});
-
-gulp.task('test:client', ['browserify'], function() {
+gulp.task('test:client', function() {//remove browserify as a prerequisite
   return gulp.src(paths.clientTests)
   .pipe(karma({
     configFile: 'karma.conf.js',
@@ -187,7 +174,7 @@ gulp.task('test:e2e',function(cb) {
   .on('end', cb);
 });
 
-gulp.task('test:one', ['browserify'], function() {
+gulp.task('test:one', function() {//remove browserify as a prerequisite
   var argv = process.argv.slice(3);
 
   var testPaths = paths.clientTests;
@@ -207,9 +194,9 @@ gulp.task('test:one', ['browserify'], function() {
   });
 });
 
-gulp.task('build', ['bower', 'jade','less','browserify','static-files']);
+gulp.task('build', ['less', 'static-files']);//remove browserify as a prerequisite 
 gulp.task('production', ['nodemon','build']);
-gulp.task('default', ['browser-sync', 'nodemon', 'build', 'watch']);
+gulp.task('default', ['nodemon', 'build', 'browser-sync', 'watch']);
 gulp.task('heroku:production', ['db-migrate', 'build']);
 gulp.task('heroku:staging', ['build']);
 gulp.task('test', ['test:client','test:server']);
