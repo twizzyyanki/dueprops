@@ -8,6 +8,7 @@ function run(appdir) {
 	var app = express();
 	var bodyParser = require('body-parser');
 	var cookieParser = require('cookie-parser');
+	var path = require('path');
 
 	// var livereload = require('connect-livereload');
 	// app.use(livereload({ port: 35729 }));
@@ -25,7 +26,7 @@ function run(appdir) {
 
 	// WHERE ARE THE STATIC FILES?
 	// app.use(express.static(app.dir + '/app'));
-	app.use(express.static(app.dir + '/public'));
+	app.use(express.static(path.join(__dirname, 'public')));
 
   // Where are templates located? (this might not be needed anymore - Obie)
 	// app.set('views', app.dir + '/app');
