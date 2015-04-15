@@ -47,5 +47,5 @@ function run(appdir) {
 	});
 
 }
-
+console.log(__dirname);
 run(__dirname);
