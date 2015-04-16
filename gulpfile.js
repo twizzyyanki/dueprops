@@ -193,7 +193,7 @@ gulp.task('test:one', function() {
   });
 });
 
-gulp.task('build', ['less', 'static-files']);
+gulp.task('build', ['less','jade', 'scripts', 'static-files']);
 gulp.task('production', ['nodemon','build']);
 gulp.task('default', ['nodemon', 'build', 'browser-sync', 'watch']);
 gulp.task('heroku:production', ['build']);
