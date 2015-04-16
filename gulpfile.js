@@ -20,7 +20,7 @@ var modRewrite = require('connect-modrewrite');
 var inject = require('gulp-inject');
 var bowerFiles = require('main-bower-files');
 var _ = require('lodash');
-var bower = require('gulp-bower'),
+var bower = require('gulp-bower');
 
 var paths = {
   public: 'public/**',
