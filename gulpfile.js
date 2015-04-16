@@ -20,6 +20,7 @@ var modRewrite = require('connect-modrewrite');
 var inject = require('gulp-inject');
 var bowerFiles = require('main-bower-files');
 var _ = require('lodash');
+var bower = require('gulp-bower'),
 
 var paths = {
   public: 'public/**',
@@ -98,6 +99,10 @@ gulp.task('browser-sync', ['inject'], function() {
   });
 });
 
+gulp.task('bower', function() {
+  return bower()
+    .pipe(gulp.dest('public/lib/'));
+});
 
 gulp.task('less', function () {
   console.log('less called');
@@ -193,7 +198,7 @@ gulp.task('test:one', function() {
   });
 });
 
-gulp.task('build', ['less', 'jade', 'scripts', 'inject', 'static-files']);
+gulp.task('build', ['bower', 'less', 'jade', 'scripts', 'inject', 'static-files']);
 gulp.task('production', ['nodemon', 'build']);
 gulp.task('default', ['nodemon', 'build', 'browser-sync', 'watch']);
 gulp.task('heroku:production', ['build']);
