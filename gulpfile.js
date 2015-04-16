@@ -174,7 +174,7 @@ gulp.task('test:e2e',function(cb) {
   .on('end', cb);
 });
 
-gulp.task('test:one', function() {//remove browserify as a prerequisite
+gulp.task('test:one', function() {
   var argv = process.argv.slice(3);
 
   var testPaths = paths.clientTests;
@@ -193,9 +193,9 @@ gulp.task('test:one', function() {//remove browserify as a prerequisite
   });
 });
 
-gulp.task('build', ['less', 'static-files']);//remove browserify as a prerequisite 
+gulp.task('build', ['less', 'static-files']);
 gulp.task('production', ['nodemon','build']);
 gulp.task('default', ['nodemon', 'build', 'browser-sync', 'watch']);
-gulp.task('heroku:production', ['db-migrate', 'build']);
+gulp.task('heroku:production', ['build']);
 gulp.task('heroku:staging', ['build']);
 gulp.task('test', ['test:client','test:server']);
