@@ -14,7 +14,7 @@
   "author": "Obie Fernandez",
   "license": "Proprietary",
   "homepage": "http://v2.dueprops.com",
-  "devDependencies": {
+  "dependencies": {
     "angular-ui-router": "^0.2.11",
     "aws-sdk": "latest",
     "browser-sync": "^2.6.1",
