@@ -125,5 +125,8 @@
     "vinyl-source-stream": "^1.0.0",
     "watchify": "^1.0.6",
     "xtend": "latest"
+  },
+  "engines": {
+    "node": "0.10.x"
   }
 }
