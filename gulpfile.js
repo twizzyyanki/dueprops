@@ -52,7 +52,6 @@ gulp.task('scripts', function() {
     .pipe(gulp.dest('./public/js'));
 
 });
- 
 
 gulp.task('inject', ['jade', 'scripts'], function() {
   console.log('inject called');
