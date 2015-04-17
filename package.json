@@ -65,6 +65,7 @@
     "bugsnag": "^1.5.0",
     "chromedriver": "^2.12.0",
     "connect-livereload": "^0.4.0",
+    "connect-modrewrite": "^0.7.11",
     "consolidate": "^0.10.0",
     "cookie-parser": "^1.3.3",
     "crypto": "0.0.3",
