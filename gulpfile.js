@@ -136,11 +136,6 @@ gulp.task('codeclimate', shell.task([
   'CODECLIMATE_REPO_TOKEN=5bdb37d182c2eee89c140cf44f338a0a20f6bc0ebaa648d7cc660dece14af397 codeclimate < "'+process.env.PWD+'/coverage/Chrome 39.0.2171 (Mac OS X 10.9.5)/lcov.info"'
 ]));
 
-//runs DB migrations
-gulp.task('db-migrate', shell.task([
-  'db-migrate up'
-]));
-
 gulp.task('watch',function() {
   gulp.watch([paths.jade, paths.scripts], function() {
     gulp.start('inject');
