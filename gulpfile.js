@@ -22,6 +22,7 @@ var bowerFiles = require('main-bower-files');
 var _ = require('lodash');
 var bower = require('gulp-bower');
 
+var image = require('gulp-image');
 var paths = {
   public: 'public/**',
   jade: 'app/**/*.jade',
@@ -64,6 +65,11 @@ gulp.task('jade', function() {
     .pipe(gulp.dest('./public/'));
 });
 
+gulp.task('image', function () {
+  gulp.src('./app/images/*')
+    .pipe(image())
+    .pipe(gulp.dest('./public/img'));
+});
 
 gulp.task('scripts', function() {
   console.log('script called');
