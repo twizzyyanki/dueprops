@@ -41,7 +41,6 @@ angular.module('dueprops.services').factory('Props', function($rootScope, $fireb
     },
 
     send: function(draftProps) {
-      console.log('send: ', draftProps);
       Refs.receivedProps(draftProps.to).child('received').push(draftProps);
     },
 

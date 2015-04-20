@@ -37,7 +37,6 @@ DueProps.controller('Application', ['$rootScope','$scope', '$mdSidenav', '$mdDia
 
   Refs.root.onAuth(function(authData) {
     Authentication.auth(authData, function(user) {
-      console.log('authenticated as', user);
       Props.init(user);
     });
   });
