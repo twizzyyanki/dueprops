@@ -14,7 +14,7 @@
   "author": "Obie Fernandez",
   "license": "Proprietary",
   "homepage": "http://v2.dueprops.com",
-  "dependencies": {
+  "Devdependencies": {
     "angular-ui-router": "^0.2.11",
     "aws-sdk": "latest",
     "browser-sync": "^2.6.1",
@@ -57,6 +57,7 @@
     "xtend": "latest"
   },
   "dependencies": {
+    "angular-ui-router": "^0.2.11",
     "async": "^0.9.0",
     "aws-sdk": "latest",
     "body-parser": "^1.9.0",
@@ -67,6 +68,7 @@
     "chromedriver": "^2.12.0",
     "connect-modrewrite": "^0.7.11",
     "connect-livereload": "^0.4.0",
+    "connect-modrewrite": "^0.7.11",
     "consolidate": "^0.10.0",
     "cookie-parser": "^1.3.3",
     "crypto": "0.0.3",
@@ -74,15 +76,12 @@
     "express": "^4.9.5",
     "firebase": "2.2.0",
     "firebase-token-generator": "^2.0.0",
-    "hubot": "^2.11.0",
-    "hubot-diagnostics": "0.0.1",
-    "hubot-help": "^0.1.1",
-    "hubot-scripts": "^2.5.16",
-    "hubot-slack": "^3.2.1",
+    "gulp": "^3.8.7",
     "gulp": "^3.8.7",
     "gulp-bower": "0.0.7",
     "gulp-concat": "^2.4.1",
     "gulp-exit": "^0.0.2",
+    "gulp-inject": "^1.2.0",
     "gulp-istanbul": "^0.3.1",
     "gulp-inject": "^1.2.0",
     "gulp-jade": "^0.7.0",
@@ -101,6 +100,11 @@
     "gulp-uglify": "^1.0.1",
     "gulp-util": "^3.0.1",
     "hashids": "^1.0.1",
+    "hubot": "^2.11.0",
+    "hubot-diagnostics": "0.0.1",
+    "hubot-help": "^0.1.1",
+    "hubot-scripts": "^2.5.16",
+    "hubot-slack": "^3.2.1",
     "jade": "^1.6.0",
     "karma": "~0.12.0",
     "karma-chrome-launcher": "^0.1.4",
@@ -108,7 +112,10 @@
     "karma-jasmine": "^0.2.2",
     "karma-mocha": "^0.1.9",
     "lodash": "^2.4.1",
+    "lodash._basecreate": "^2.4.1",
+    "lodash.isobject": "^2.4.1",
     "mailgun-js": "^0.6.7",
+    "main-bower-files": "^2.6.2",
     "minifyify": "^4.4.0",
     "mocha": "^1.21.4",
     "module-deps": "^3.5.10",
@@ -119,6 +126,7 @@
     "pg": "4.x",
     "protractor": "^1.5.0",
     "proxyquire": "^1.0.1",
+    "proxyquireify": "^1.1.0",
     "selenium-server-standalone-jar": "2.44.0",
     "stringify": "^2.2.0",
     "supertest": "latest",
@@ -131,5 +139,10 @@
     "engines": {
         "node": "0.10.x"
     }
+=======
+    "xtend": "latest"
+  },
+  "engines": {
+    "node": "0.10.x"
   }
 }
