@@ -24,6 +24,7 @@
     "gulp": "^3.8.7",
     "gulp-concat": "^2.4.1",
     "gulp-exit": "^0.0.2",
+    "gulp-image": "^0.5.7",
     "gulp-inject": "^1.2.0",
     "gulp-istanbul": "^0.3.1",
     "gulp-jshint": "^1.8.4",
@@ -79,6 +80,7 @@
     "gulp-bower": "0.0.7",
     "gulp-concat": "^2.4.1",
     "gulp-exit": "^0.0.2",
+    "gulp-image": "^0.5.7",
     "gulp-inject": "^1.2.0",
     "gulp-istanbul": "^0.3.1",
     "gulp-jade": "^0.7.0",
@@ -133,8 +135,5 @@
     "vinyl-source-stream": "^1.0.0",
     "watchify": "^1.0.6",
     "xtend": "latest"
-  },
-  "devDependencies": {
-    "gulp-image": "^0.5.7"
   }
 }
