@@ -10,7 +10,8 @@ window.DueProps = angular.module("DueProps", [
   'dueprops.controllers',
   'ngAnimate',
   'ngMaterial',
-  'ui.router'
+  'ui.router',
+  'ngTagsInput'
 ]);
 
 DueProps.config(['$stateProvider','$locationProvider',
@@ -53,6 +54,7 @@ DueProps.controller('Application', ['$rootScope','$scope', '$mdSidenav', '$mdDia
         $scope.draft = Props.draft(prop);
 
         $scope.send = function(draftProps) {
+          console.log(draftProps);
           Props.send(draftProps);
           $mdDialog.hide();
         };
@@ -65,12 +67,13 @@ DueProps.controller('Application', ['$rootScope','$scope', '$mdSidenav', '$mdDia
   };
 }]);
 
-window.escapeEmailAddress = function(email) {
-  if (!email)
+window.escapeEmailAddress = function(emailList) {
+  if (!emailList)
     return false;
-
-  // Replace '.' (not allowed in a Firebase key) with ',' (not allowed in an email address)
-  email = email.toLowerCase();
-  email = email.replace(/\./g, ',');
-  return email;
+  else {
+    console.log(emailList);
+    email = emailList.toLowerCase();
+    email = emailList.replace(/\./g, ',');
+    return email;
+  }
 };
