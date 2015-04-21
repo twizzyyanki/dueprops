@@ -9,7 +9,7 @@ angular.module('dueprops.services').factory('Props', function($rootScope, $fireb
         var self = this;
         Feed.forUser(this.user).then(function(result) {
           self.user.feed = result[0];
-        })
+        });
         this.user.props = $firebaseArray(Refs.props);
       }
     },
