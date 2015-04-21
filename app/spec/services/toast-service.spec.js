@@ -17,7 +17,7 @@ describe('toast', function() {
       toast('');
       expect($mdToast.show).toHaveBeenCalledWith({ 
         template:  '<md-toast>Toast Text Goes Here</md-toast>',
-        hideDelay: undefined,
+        hideDelay: 2000,
         position:  'bottom left'
       });
     });
@@ -26,7 +26,7 @@ describe('toast', function() {
       toast('hello');
       expect($mdToast.show).toHaveBeenCalledWith({ 
         template:  '<md-toast>hello</md-toast>',
-        hideDelay: undefined,
+        hideDelay: 2000,
         position:  'bottom left'
       });
     });

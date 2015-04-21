@@ -1,9 +1,7 @@
-angular.module('dueprops.services')
-  .factory('toast',['$mdToast', '$timeout', function($mdToast, $timeout){
-    return function(text, hideDelay, position, cb) {
-      text = text || 'Toast Text Goes Here';
-      hideDelay = hideDelay || 2000;
-      position = position || 'bottom left';
+angular.module('dueprops.services').factory('toast', function($mdToast, $timeout) {
+  return function(text, hideDelay, position, cb) {
+    text = text || 'Toast Text Goes Here';
+    position = position || 'bottom left';
 
     $mdToast.show({
       template: '<md-toast>' + text + '</md-toast>',
@@ -11,11 +9,10 @@ angular.module('dueprops.services')
       position: position
     });
 
-      if(cb) {
-        setTimeout(function() { cb(); }, hideDelay);
-        $timeout(function() {
-          cb();
-        });
-      }
-    };
-  }]);
+    if (cb) {
+      $timeout(function() {
+        cb();
+      });
+    }
+  };
+});
