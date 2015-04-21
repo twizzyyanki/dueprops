@@ -3,6 +3,24 @@ module.exports = function(config){
     basePath : '',
 
     files : [
+      'public/bower_components/angular/angular.js',
+      'public/bower_components/angular-mocks/angular-mocks.js',
+      'public/bower_components/angular-moment/angular-moment.js',
+      'public/bower_components/angular-ui-router/release/angular-ui-router.js',
+      'public/bower_components/angular-cookies/angular-cookies.js',
+      'public/bower_components/angular-elastic/elastic.js',
+      'public/bower_components/jquery/dist/jquery.min.js',
+      'public/bower_components/angular-aria/angular-aria.js',
+      'public/bower_components/angular-material/angular-material.js',
+      'public/bower_components/angular-animate/angular-animate.js',
+      'public/bower_components/angularfire/dist/angularfire.js',
+      'public/bower_components/moment/moment.js',
+      'public/bower_components/firebase/firebase.js',
+      'public/bower_components/lodash/lodash.min.js',
+      'public/bower_components/angular-sortable-view/src/angular-sortable-view.js',
+      'app/application.js',
+      'app/services/toast-service.js',
+      'app/**/*.spec.js'
     ],
 
     // list of files to exclude
