@@ -21,8 +21,8 @@ var inject = require('gulp-inject');
 var bowerFiles = require('main-bower-files');
 var _ = require('lodash');
 var bower = require('gulp-bower');
-
 var image = require('gulp-image');
+
 var paths = {
   public: 'public/**',
   jade: 'app/**/*.jade',
@@ -199,7 +199,7 @@ gulp.task('test:one', function() {
   });
 });
 
-gulp.task('build', ['bower', 'less', 'jade', 'scripts', 'inject', 'static-files']);
+gulp.task('build', ['bower', 'less', 'jade', 'image', 'scripts', 'inject', 'static-files']);
 gulp.task('production', ['nodemon', 'build']);
 gulp.task('default', ['nodemon', 'build', 'browser-sync', 'watch']);
 gulp.task('heroku:production', ['build']);
