@@ -1,5 +1,5 @@
 /* define our modules */
-angular.module('dueprops.services', ['angularMoment','firebase','ngCookies']);
+angular.module('dueprops.services', ['angularMoment', 'firebase', 'ngCookies']);
 angular.module('dueprops.filters', []);
 angular.module("dueprops.directives", []);
 angular.module('dueprops.controllers', []);
