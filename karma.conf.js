@@ -18,9 +18,7 @@ module.exports = function(config){
       'public/bower_components/firebase/firebase.js',
       'public/bower_components/lodash/lodash.min.js',
       'public/bower_components/angular-sortable-view/src/angular-sortable-view.js',
-      'app/application.js',
-      'app/services/toast-service.js',
-      'app/**/*.spec.js'
+      'app/**/*.js'
     ],
 
     // list of files to exclude
