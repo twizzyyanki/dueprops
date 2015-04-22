@@ -34,3 +34,22 @@ angular.module("dueprops.directives")
         '</md-input-container>'
     };
   });
+
+angular.module("dueprops.directives")
+  .directive('multipleInput', function() {
+    return {
+      restrict: 'E',
+      replace: true,
+      scope: {
+        fid: '@',
+        label: '@',
+        draft: '=draft',
+        limit: '@'
+      },
+      template:
+        '<md-input-container>' +
+          '<label ng-class="{invalid: draft[fid].length > limit}">{{label}}</label>' +
+          '<tags-input type="text" id="{{fid}}" ng-model="draft[fid]">' +
+        '</md-input-container>'
+    };
+  });

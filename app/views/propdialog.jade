@@ -5,9 +5,9 @@ md-dialog#propdialog
       h1 {{draft.name}}
       p {{draft.description}}
       form.prop-form
-        draft-input.md-input-group-theme-light-blue(fid="to" label="to" draft="draft" multiple="multiple")
+        multiple-input.md-input-group-theme-light-blue(fid="to" label="to" draft="draft")
         draft-input.md-input-group-theme-light-blue(fid="reason" label="why are they deserved?" draft="draft" limit="140")
 
   .md-actions(ng-click="close()")
     md-button(ng-hide="Props.validate(draft)") Cancel
-    md-button.md-button-raised.md-theme-green(ng-click="Props.send(draft)" ng-show="Props.validate(draft)") Save and Send
+    md-button.md-button-raised.md-theme-green(ng-click="send(draft)" ng-show="Props.validate(draft)") Save and Send

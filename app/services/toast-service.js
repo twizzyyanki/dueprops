@@ -1,5 +1,5 @@
 angular.module('dueprops.services')
-  .factory('toast',['$mdToast', '$timeout', function($mdToast, $timeout){
+  .factory('toast',['$mdToast', function($mdToast) {
     return function(text, hideDelay, position, cb) {
       text = text || 'Toast Text Goes Here';
       hideDelay = hideDelay || 2000;
@@ -13,9 +13,6 @@ angular.module('dueprops.services')
 
       if(cb) {
         setTimeout(function() { cb(); }, hideDelay);
-        $timeout(function() {
-          cb();
-        });
       }
     };
   }]);
