@@ -1,5 +1,7 @@
 angular.module('dueprops.services').factory('escapeEmail', function() {
   var escapeSingleEmail = function(email) {
+  console.log('email:', email);
+
     return email.replace(/\./g, ',').toLowerCase();
   };
 
