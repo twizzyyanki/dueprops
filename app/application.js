@@ -54,7 +54,6 @@ DueProps.controller('Application', ['$rootScope','$scope', '$mdSidenav', '$mdDia
         $scope.draft = Props.draft(prop);
 
         $scope.send = function(draftProps) {
-          console.log(draftProps);
           Props.send(draftProps);
           $mdDialog.hide();
         };
@@ -71,7 +70,6 @@ window.escapeEmailAddress = function(emailList) {
   if (!emailList)
     return false;
   else {
-    console.log(emailList);
     email = emailList.toLowerCase();
     email = emailList.replace(/\./g, ',');
     return email;
