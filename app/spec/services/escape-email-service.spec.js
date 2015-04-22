@@ -15,19 +15,23 @@ describe('escapeEmail', function() {
     });
 
     it('converts uppercase email to lowercase', function() {
-      expect(escapeEmail('RUKAYAT,SADIQ@ANDELA,CO')).toEqual('rukayat,sadiq@andela,co');
+      expect(escapeEmail('RUKAYAT.SADIQ@ANDELA.CO')).toEqual('rukayat,sadiq@andela,co');
     });
   });
 
   describe('multiple email addresses', function() {
     it('converts dots to commas', function() {
-      expect(escapeEmail(['blessing.orazulume@andela.co', 'rukayat.sadiq@andela.co'])).toEqual(['blessing,orazulume@andela,co', 'rukayat,sadiq@andela,co']);
-         
+      expect(escapeEmail([
+        {text: 'blessing.orazulume@andela.co'},
+        {text: 'rukayat.sadiq@andela.co'}
+      ])).toEqual(['blessing,orazulume@andela,co', 'rukayat,sadiq@andela,co']);   
     });
 
     it('converts uppercase email to lowercase', function() {
-      expect(escapeEmail(['BLESSING.ORAZULUME@ANDELA.CO', 'RUKAYAT.SADIQ@ANDELA.CO'])).toEqual(['blessing,orazulume@andela,co', 'rukayat,sadiq@andela,co']);
-      
+      expect(escapeEmail([
+        {text: 'BLESSING.ORAZULUME@ANDELA.CO'},
+        {text: 'RUKAYAT.SADIQ@ANDELA.CO'}
+      ])).toEqual(['blessing,orazulume@andela,co', 'rukayat,sadiq@andela,co']);
     });
   });
 });
