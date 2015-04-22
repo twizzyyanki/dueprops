@@ -9,7 +9,7 @@ angular.module('dueprops.services').factory('Props', function($rootScope, $fireb
         var self = this;
         Feed.forUser(this.user).then(function(result) {
           self.user.feed = result[0];
-        })
+        });
         this.user.props = $firebaseArray(Refs.props);
       }
     },
@@ -41,7 +41,9 @@ angular.module('dueprops.services').factory('Props', function($rootScope, $fireb
     },
 
     send: function(draftProps) {
-      Refs.receivedProps(draftProps.to).child('received').push(draftProps);
+      for(var i = 0; i < draftProps.to.length; i++) {
+        Refs.receivedProps(draftProps.to[i].text).child('received').push(draftProps);
+      }
     },
 
     validate: function(draftProps) {

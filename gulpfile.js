@@ -26,7 +26,10 @@ var paths = {
   public: 'public/**',
   jade: 'app/**/*.jade',
   styles: 'app/styles/*.+(less|css)',
-  scripts: 'app/**/*.js',
+  scripts: [
+    'app/**/*.js',
+    '!app/spec/**/*.spec.js'
+  ],
   staticFiles: [
     '!app/**/*.+(less|css|js|jade)',
      'app/**/*.*'
