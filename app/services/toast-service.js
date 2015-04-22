@@ -5,11 +5,11 @@ angular.module('dueprops.services')
       hideDelay = hideDelay || 2000;
       position = position || 'bottom left';
 
-    $mdToast.show({
-      template: '<md-toast>' + text + '</md-toast>',
-      hideDelay: hideDelay,
-      position: position
-    });
+      $mdToast.show({
+        template: '<md-toast>' + text + '</md-toast>',
+        hideDelay: hideDelay,
+        position: position
+      });
 
       if(cb) {
         setTimeout(function() { cb(); }, hideDelay);
