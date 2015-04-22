@@ -71,9 +71,8 @@ window.escapeEmailAddress = function(emailList) {
   if (!emailList)
     return false;
   else {
-    console.log(emailList);
-    email = emailList.toLowerCase();
-    email = emailList.replace(/\./g, ',');
+    var email = emailList.toLowerCase();
+        email = emailList.replace(/\./g, ',');
     return email;
   }
 };
