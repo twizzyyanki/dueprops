@@ -71,13 +71,10 @@ window.escapeEmailAddress = function(emailList) {
   if (!emailList)
     return false;
   else {
-<<<<<<< HEAD
     var email = emailList.toLowerCase();
         email = emailList.replace(/\./g, ',');
-=======
     email = emailList.toLowerCase();
     email = emailList.replace(/\./g, ',');
->>>>>>> 652a80b109a050ba20c6f66f6819e297f1a2a24e
     return email;
   }
 };
