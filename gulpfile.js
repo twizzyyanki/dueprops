@@ -43,6 +43,12 @@ gulp.task('jade', function() {
     .pipe(gulp.dest('./public/'));
 });
 
+gulp.task('concat', function() {
+  return gulp.src(paths.scripts)
+    .pipe(concat('index.js'))
+    .pipe(gulp.dest('./public/js'));
+});
+
 gulp.task('image', function () {
   gulp.src('./app/images/*')
     .pipe(image())
@@ -176,9 +182,10 @@ gulp.task('test:one', function() {
   });
 });
 
-gulp.task('build', ['bower', 'less', 'jade', 'image', 'scripts', 'inject', 'static-files']);
+gulp.task('build', ['bower', 'less', 'jade', 'image', 'scripts', 'concat', 'inject', 'static-files']);
+gulp.task('build-dev', ['bower', 'less', 'jade', 'image', 'scripts', 'inject', 'static-files']);
 gulp.task('production', ['nodemon', 'build']);
-gulp.task('default', ['nodemon', 'build', 'browser-sync', 'watch']);
+gulp.task('default', ['nodemon', 'build-dev', 'browser-sync', 'watch']);
 gulp.task('heroku:production', ['build']);
-gulp.task('heroku:staging', ['build']);
+gulp.task('heroku:staging', ['build-dev']);
 gulp.task('test', ['test:client', 'test:server']);
