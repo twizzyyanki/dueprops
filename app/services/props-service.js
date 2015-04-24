@@ -41,10 +41,10 @@ angular.module('dueprops.services').factory('Props', function($rootScope, $fireb
     },
 
     send: function(draftProps) {
-      // create a variable for the API call parameters
-      
       for(var i = 0; i < draftProps.to.length; i++) {
         Refs.receivedProps(draftProps.to[i].text).child('received').push(draftProps);
+        
+        // create a variable for the API call parameters
         var params = {
           message: {
             from_email: 'dueprops@andela.co',
