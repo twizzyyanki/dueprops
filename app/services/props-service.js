@@ -41,8 +41,25 @@ angular.module('dueprops.services').factory('Props', function($rootScope, $fireb
     },
 
     send: function(draftProps) {
+      // create a variable for the API call parameters
+      
       for(var i = 0; i < draftProps.to.length; i++) {
         Refs.receivedProps(draftProps.to[i].text).child('received').push(draftProps);
+        var params = {
+          message: {
+            from_email: 'dueprops@andela.co',
+            to:[{email: draftProps.to[i].text}],
+            subject: 'Sending a text email from Dueprops',
+            text: 'You just got a prop for ' + draftProps.reason + '.'
+          }
+        };
+
+        var m = new mandrill.Mandrill('TOUUcftjdOYJFoKFbR72pA');
+        m.messages.send(params, function(res) {
+          
+        }, function(err) {
+          alert('Oops! Sorry, something went wrong. Please try again.');
+        });
       }
     },
 
