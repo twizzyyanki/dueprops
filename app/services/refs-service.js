@@ -14,8 +14,8 @@ angular.module('dueprops.services')
         props:         new Firebase(firebaseUrl + '/props'),
         users:         rootRef.child('users'),
         feed:          new Firebase(firebaseUrl + '/feed'),
-        receivedProps: function(emailList) {
-          return new Firebase(firebaseUrl + '/feed').child(escapeEmailAddress(emailList)).child('received');
+        receivedProps: function(email) {
+          return new Firebase(firebaseUrl + '/feed').child(escapeEmailAddress(email)).child('received');
         },
         isAdmin: function() {
           var auth = rootRef.getAuth()?rootRef.getAuth().auth:false;

@@ -54,6 +54,7 @@ DueProps.controller('Application', ['$rootScope','$scope', '$mdSidenav', '$mdDia
         $scope.draft = Props.draft(prop);
 
         $scope.send = function(draftProps) {
+          
           console.log(draftProps);
           Props.send(draftProps);
           $mdDialog.hide();
