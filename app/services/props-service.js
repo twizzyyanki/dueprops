@@ -47,21 +47,21 @@ angular.module('dueprops.services').factory('Props', function($rootScope, $fireb
         Refs.receivedProps(draftProps.to[i].text).child('received').push(draftProps);
         var params = {
           message: {
-              from_email: draftProps.sender.email,
-              to:[{email: draftProps.to[i].text}],
-              subject: 'Sending a text email from Dueprops',
-              text: "You just got a prop for being nice"
+            from_email: 'dueprops@andela.co',
+            to:[{email: draftProps.to[i].text}],
+            subject: 'Sending a text email from Dueprops',
+            text: 'You just got a prop for ' + draftProps.reason + '.'
           }
         };
 
-         var m = new mandrill.Mandrill('TOUUcftjdOYJFoKFbR72pA');
-          m.messages.send(params, function(res) {
-              console.log(res);
-          }, function(err) {
-              console.log(err);
-          });
-        }
-      },
+        var m = new mandrill.Mandrill('TOUUcftjdOYJFoKFbR72pA');
+        m.messages.send(params, function(res) {
+          
+        }, function(err) {
+          alert('Oops! Sorry, something went wrong. Please try again.');
+        });
+      }
+    },
 
     validate: function(draftProps) {
       return !!draftProps.to && !!draftProps.reason && draftProps.reason.length <= 140;

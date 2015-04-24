@@ -1,13 +1,21 @@
 site-header
 main(layout='row', layout-fill='layout-fill')
-  md-sidenav.md-sidenav-left(md-component-id='left')
+  md-sidenav.site-sidenav.md-sidenav-left.md-whiteframe-z2.md-closed.ng-isolate-scope.md-locked-open(md-component-id='left', md-is-locked-open="$mdMedia('gt-md')", tabindex='-1')
+    md-toolbar.md-theme-light
+      .md-toolbar-tools
+        | Featured Props
     md-content.propgrid(layout='row')
+      md-button#generalPropsButton.md-button-toggle.md-button.md-default-theme(ng-click='toggle()', aria-expanded='true', tabindex='0')
+        div(layout='row')
+          | General Props
+          span
+            i.fa.fa-chevron-down
       .prop(ng-repeat='prop in currentUser.props')
         img.icon(ng-click='openPropDialog(prop)', ng-src='{{prop.icon}}')
   md-content.feed(layout='row', style='align-items: flex-start; align-content: flex-start; width: 100%')
-    md-toolbar.md-theme-light
+    md-toolbar#feedToolBar.md-theme-light
       .md-toolbar-tools
-        i.fa.fa-bars(fa-4x='', ng-click='openLeftMenu()')
+        i.fa.fa-bars(fa-4x='')
         | My Feed
     prop-card(ng-repeat='card in currentUser.feed', ng-animate="'animate'")
 footer(ng-if='currentUser')
