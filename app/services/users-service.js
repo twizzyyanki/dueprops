@@ -1,5 +1,5 @@
 angular.module('dueprops.services')
-  .factory('Users', ['$firebase', 'Refs',
+  .factory('Users', ['$firebase', 'AuditTrail', 'Refs',
     function($firebase, AuditTrail, Refs) {
       return {
         all: function(cb) {

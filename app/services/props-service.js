@@ -1,4 +1,4 @@
-angular.module('dueprops.services').factory('Props', ['$rootScope','$firebaseArray','Refs','Feed',function($rootScope, $firebaseArray, Refs, Feed) {
+angular.module('dueprops.services').factory('Props', ['$rootScope', '$firebaseArray', 'Refs', 'Feed', function($rootScope, $firebaseArray, Refs, Feed) {
   var service = {
     // initialized below
     user: null,
