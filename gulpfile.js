@@ -63,7 +63,7 @@ gulp.task('scripts', function() {
 
 });
 
-gulp.task('inject', ['jade'], function() {
+gulp.task('inject', ['jade', 'concat'], function() {
   console.log('inject called');
   var injectOptions = {
     ignorePath: ['public']
