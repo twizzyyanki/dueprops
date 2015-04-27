@@ -21,6 +21,7 @@ var bowerFiles = require('main-bower-files');
 var _ = require('lodash');
 var bower = require('gulp-bower');
 var image = require('gulp-image');
+var run = require('run-sequence');
 
 var paths = {
   public: 'public/**',
@@ -71,6 +72,7 @@ gulp.task('inject', ['jade'], function() {
   return gulp.src('./public/index.html')
     .pipe(inject(gulp.src(bowerFiles(), { read: false }), _.merge({}, injectOptions, { name: 'bower' })))
     .pipe(inject(gulp.src(['./public/js/**/*.js', './public/**/*.css']), injectOptions))
+    .pipe(inject(gulp.src('./public/js/**/*.js'), injectOptions))
     .pipe(gulp.dest('./public'));
 });
 
@@ -90,7 +92,7 @@ gulp.task('browser-sync', ['inject'], function() {
 
 gulp.task('bower', function() {
   return bower()
-    .pipe(gulp.dest('public/lib/'));
+    .pipe(gulp.dest('public/bower_components/'));
 });
 
 gulp.task('less', function () {
@@ -182,10 +184,14 @@ gulp.task('test:one', function() {
   });
 });
 
-gulp.task('build', ['bower', 'less', 'jade', 'image', 'concat', 'inject', 'static-files']);
-gulp.task('build-dev', ['bower', 'less', 'jade', 'image', 'scripts', 'inject', 'static-files']);
-gulp.task('production', ['nodemon', 'build']);
-gulp.task('default', ['nodemon', 'build-dev', 'browser-sync', 'watch']);
+gulp.task('production', ['bower'], function() {
+  run(['concat', 'less', 'jade', 'image', 'inject', 'static-files']);
+});
+
+gulp.task('build', ['production']);
+gulp.task('build:dev', ['bower', 'less', 'jade', 'image', 'scripts', 'inject', 'static-files']);
+
+gulp.task('default', ['nodemon', 'build:dev', 'browser-sync', 'watch']);
 gulp.task('heroku:production', ['build']);
-gulp.task('heroku:staging', ['build-dev']);
+gulp.task('heroku:staging', ['build']);
 gulp.task('test', ['test:client', 'test:server']);
