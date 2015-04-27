@@ -69,7 +69,7 @@ gulp.task('inject', ['jade'], function() {
     ignorePath: ['public']
   };
  
-  return gulp.src('./public/index.html')
+  return gulp.src('./public/index2.html')
     .pipe(inject(gulp.src(bowerFiles(), { read: false }), _.merge({}, injectOptions, { name: 'bower' })))
     .pipe(inject(gulp.src(['./public/js/**/*.js', './public/**/*.css']), injectOptions))
     .pipe(inject(gulp.src('./public/js/**/*.js'), injectOptions))
@@ -184,16 +184,13 @@ gulp.task('test:one', function() {
   });
 });
 
-gulp.task('production', ['bower'], function() {
+gulp.task('build', ['bower'], function() {
   run(['less', 'jade', 'image', 'concat', 'inject', 'static-files']);
 });
 
-gulp.task('development', ['bower'], function() {
+gulp.task('build:dev', function() {
   run(['less', 'jade', 'image', 'scripts', 'inject', 'static-files']);
 });
-
-gulp.task('build', ['production']);
-gulp.task('build:dev', ['bower', 'less', 'jade', 'image', 'scripts', 'inject', 'static-files']);
 
 gulp.task('default', ['nodemon', 'build:dev', 'browser-sync', 'watch']);
 gulp.task('heroku:production', ['build']);
