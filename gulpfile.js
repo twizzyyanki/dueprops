@@ -185,7 +185,11 @@ gulp.task('test:one', function() {
 });
 
 gulp.task('production', ['bower'], function() {
-  run(['concat', 'less', 'jade', 'image', 'inject', 'static-files']);
+  run(['less', 'jade', 'image', 'concat', 'inject', 'static-files']);
+});
+
+gulp.task('development', ['bower'], function() {
+  run(['less', 'jade', 'image', 'scripts', 'inject', 'static-files']);
 });
 
 gulp.task('build', ['production']);
