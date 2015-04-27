@@ -62,7 +62,7 @@ gulp.task('scripts', function() {
 
 });
 
-gulp.task('inject', ['jade', 'scripts'], function() {
+gulp.task('inject', ['jade'], function() {
   console.log('inject called');
   var injectOptions = {
     ignorePath: ['public']
@@ -182,7 +182,7 @@ gulp.task('test:one', function() {
   });
 });
 
-gulp.task('build', ['bower', 'less', 'jade', 'image', 'scripts', 'concat', 'inject', 'static-files']);
+gulp.task('build', ['bower', 'less', 'jade', 'image', 'concat', 'inject', 'static-files']);
 gulp.task('build-dev', ['bower', 'less', 'jade', 'image', 'scripts', 'inject', 'static-files']);
 gulp.task('production', ['nodemon', 'build']);
 gulp.task('default', ['nodemon', 'build-dev', 'browser-sync', 'watch']);
