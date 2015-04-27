@@ -188,7 +188,7 @@ gulp.task('build', ['bower'], function() {
   run(['less', 'jade', 'image', 'concat', 'inject', 'static-files']);
 });
 
-gulp.task('build:dev', function() {
+gulp.task('build:dev', ['bower'], function() {
   run(['less', 'jade', 'image', 'scripts', 'inject', 'static-files']);
 });
 
