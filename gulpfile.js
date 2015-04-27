@@ -69,7 +69,7 @@ gulp.task('inject', ['jade'], function() {
     ignorePath: ['public']
   };
  
-  return gulp.src('./public/index2.html')
+  return gulp.src('./public/index.html')
     .pipe(inject(gulp.src(bowerFiles(), { read: false }), _.merge({}, injectOptions, { name: 'bower' })))
     .pipe(inject(gulp.src(['./public/js/**/*.js', './public/**/*.css']), injectOptions))
     .pipe(inject(gulp.src('./public/js/**/*.js'), injectOptions))
