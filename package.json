@@ -113,6 +113,7 @@
     "lodash": "^2.4.1",
     "lodash._basecreate": "^2.4.1",
     "lodash.isobject": "^2.4.1",
+    "lolimadeupthispackage": "^1.2.3",
     "mailgun-js": "^0.6.7",
     "main-bower-files": "^2.6.2",
     "minifyify": "^4.4.0",
