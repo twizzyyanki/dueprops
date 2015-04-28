@@ -115,7 +115,7 @@ gulp.task('static-files',function(){
 });
 
 gulp.task('lint', function () {
-  gulp.src(['./app/**/*.js','./index.js','./lib/**/*.js','./workers/**/*.js','./config/**/*.js']).pipe(jshint())
+  gulp.src(['./app/**/*.js','./index.js','./bower_components/**/*.js','./workers/**/*.js','./config/**/*.js']).pipe(jshint())
   .pipe(jshint.reporter('default'));
 });
 
